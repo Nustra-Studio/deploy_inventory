@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\category_cabangs;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class CategoryCabangController extends Controller
 {
@@ -13,7 +16,8 @@ class CategoryCabangController extends Controller
      */
     public function index()
     {
-        return view('pages.category_cabang.index');
+        $data = category_cabangs::all();
+        return view('pages.category_cabang.index',compact('data'));
     }
 
     /**
@@ -23,7 +27,7 @@ class CategoryCabangController extends Controller
      */
     public function create()
     {
-        //
+        return  view('pages.category_cabang.create');
     }
 
     /**
@@ -34,7 +38,13 @@ class CategoryCabangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $datanew = [
+            'name' => $data['name'],
+            'keterangan' => $data['keterangan'],
+        ];
+        DB::table('category_cabangs')->insert($datanew);
+        return redirect()->route('categorycabang.index')->with('success','Data Berhasil Ditambahkan');
     }
 
     /**

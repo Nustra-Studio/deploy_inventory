@@ -7,22 +7,29 @@
         <li class="breadcrumb-item active" aria-current="page">Add Cabang</li>
     </ol>
     </nav>
-
+    @php
+        use App\Models\category_cabang;
+        $cabang = category_cabang::all();
+    @endphp
     <div class="row">
     <div class="col-md-8 grid-margin stretch-card">
         <div class="card">
         <div class="card-body">
 
             <h6 class="card-title">Input Cabang</h6>
-
-            <form class="forms-sample">
+            <form 
+            action="{{ route('cabang.store') }}" 
+            method="POST" 
+            enctype="multipart/form-data"    
+            class="forms-sample">
+                @csrf
             <div class="mb-3">
                 <label for="exampleInputUsername1" class="form-label">Nama</label>
                 <input type="text" name="nama" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Cabang">
             </div>
             <div class="mb-3">
                 <label for="exampleInputUsername2" class="form-label">Kepala</label>
-                <input name="kepala" type="text" class="form-control" id="exampleInputUsername2" autocomplete="off" placeholder="Kepala Cabang">
+                <input name="kepala_cabang" type="text" class="form-control" id="exampleInputUsername2" autocomplete="off" placeholder="Kepala Cabang">
             </div>
             <div class="mb-3">
                 <label for="exampleInputUsername3" class="form-label">Telepon</label>
@@ -34,13 +41,11 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlSelect1" class="form-label">Category Cabang</label>
-                <select class="form-select" name="category" id="exampleFormControlSelect1">
+                <select class="form-select" name="category_id" id="exampleFormControlSelect1">
                     <option selected disabled>Select your Category Cabang</option>
-                    <option>12-18</option>
-                    <option>18-22</option>
-                    <option>22-30</option>
-                    <option>30-60</option>
-                    <option>Above 60</option>
+                    @foreach ($cabang as $item)
+                    <option value="{{$item->id}}">{{$item->name}}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="mb-3">

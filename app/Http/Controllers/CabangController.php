@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\cabang;
+// tambahkan db
+use Illuminate\Support\Facades\DB;
 
 class CabangController extends Controller
 {
@@ -13,7 +16,8 @@ class CabangController extends Controller
      */
     public function index()
     {
-        return view('pages.cabang.index');
+        $data = cabang::all();
+        return view('pages.cabang.index', compact('data'));
     }
 
     /**
@@ -36,9 +40,16 @@ class CabangController extends Controller
     {
         // create database for request data
         $data = $request->all();
-        // create database for cabang
-        cabang::create($data);
-        // redirect to cabang index
+        // create new data
+        $newdata = [
+            'nama' => $data['nama'],
+            'alamat' => $data['alamat'],
+            'keterangan' => $data['keterangan'],
+            'kepala_cabang' => $data['kepala_cabang'],
+            'telepon' => $data['telepon'],
+            'category_id' => $data['category_id'],
+        ];
+        DB::table('cabangs')->insert($newdata);
         return redirect()->route('cabang.index')->with('success', 'Data cabang berhasil ditambahkan');
     }
 

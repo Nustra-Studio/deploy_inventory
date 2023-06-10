@@ -55,6 +55,35 @@ License: For each use you must have a valid license purchased only from above li
       <div class="page-content">
         @yield('content')
       </div>
+      <script>
+        // Tambahkan event listener untuk tombol atau tautan
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteButtons = document.getElementsByClassName('delete-button');
+      
+            Array.from(deleteButtons).forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var formId = this.getAttribute('data-form-delete');
+      
+                    Swal.fire({
+                        title: 'Anda yakin?',
+                        text: "Tindakan ini tidak dapat diurungkan!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Mengirimkan request penghapusan
+                            document.getElementById('form-delete-' + formId).submit();
+                        }
+                    });
+                });
+            });
+        });
+      </script>
       @include('layout.footer')
     </div>
   </div>

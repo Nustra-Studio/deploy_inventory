@@ -3,8 +3,8 @@
     @section('content')
     <nav class="page-breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/category">Category</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Category Barang</li>
+        <li class="breadcrumb-item"><a href="/categorycabang">Category Cabang</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Category Cabang</li>
     </ol>
     </nav>
 
@@ -13,12 +13,21 @@
         <div class="card">
         <div class="card-body">
 
-            <h6 class="card-title">Input Category</h6>
+            <h6 class="card-title">Input Cabang Category</h6>
 
-            <form class="forms-sample">
+            <form 
+            action="{{ route('categorycabang.store') }}" 
+            method="POST" 
+            enctype="multipart/form-data"    
+            class="forms-sample">
+                @csrf
             <div class="mb-3">
                 <label for="exampleInputUsername1" class="form-label">Nama</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Catgory Barang">
+                <input type="text" name="name" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Catgory Barang">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputUsername2" class="form-label">Keterangan</label>
+                <input type="text" name="keterangan" class="form-control" id="exampleInputUsername2" autocomplete="off" placeholder="Keterangan Cabang">
             </div>
             <button type="submit" class="btn btn-primary me-2">Submit</button>
             <button  
