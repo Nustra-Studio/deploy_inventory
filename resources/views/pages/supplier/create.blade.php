@@ -18,11 +18,11 @@
         <form class="forms-sample">
         <div class="mb-3">
             <label for="exampleInputUsername1" class="form-label">Nama</label>
-            <input type="text" name="nama" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Cabang">
+            <input type="text" name="nama" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama ">
         </div>
         <div class="mb-3">
-            <label for="exampleInputUsername2" class="form-label">Kepala</label>
-            <input name="kepala" type="text" class="form-control" id="exampleInputUsername2" autocomplete="off" placeholder="Kepala Cabang">
+            <label for="exampleInputUsername2" class="form-label">Supplier</label>
+            <input name="Supplier" type="text" class="form-control" id="exampleInputUsername2" autocomplete="off" placeholder="Supplier">
         </div>
         <div class="mb-3">
             <label for="exampleInputUsername3" class="form-label">Telepon</label>
@@ -30,22 +30,18 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputUsername4" class="form-label">Alamat</label>
-            <input type="text" name="alamat" class="form-control" id="exampleInputUsername4" autocomplete="off" placeholder="Alamat Cabang">
+            <input type="text" name="alamat" class="form-control" id="exampleInputUsername4" autocomplete="off" placeholder="Alamat Supplier">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlSelect1" class="form-label">Category Cabang</label>
+            <label for="exampleFormControlSelect1" class="form-label">Category Supplier</label>
             <select class="form-select" name="category" id="exampleFormControlSelect1">
-                <option selected disabled>Select your Category Cabang</option>
+                <option selected disabled>Select your Category Supplier</option>
                 <option>12-18</option>
                 <option>18-22</option>
                 <option>22-30</option>
                 <option>30-60</option>
                 <option>Above 60</option>
             </select>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputUsername4" class="form-label">Keterangan</label>
-            <input type="text" name="keterangan" class="form-control" id="exampleInputUsername4" autocomplete="off" placeholder="Keterangan Cabang">
         </div>
         <button type="submit" class="btn btn-primary me-2">Submit</button>
         <button  

@@ -14,11 +14,15 @@
         <div class="card-body">
 
             <h6 class="card-title">Input Category</h6>
-
-            <form class="forms-sample">
+            <form 
+            action="{{ route('category.store') }}" 
+            method="POST" 
+            enctype="multipart/form-data"    
+            class="forms-sample">
+                @csrf
             <div class="mb-3">
                 <label for="exampleInputUsername1" class="form-label">Nama</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Catgory Barang">
+                <input type="text" name="name" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Catgory Barang">
             </div>
             <button type="submit" class="btn btn-primary me-2">Submit</button>
             <button  

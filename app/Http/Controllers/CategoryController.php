@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\category_barang;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -13,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('pages.category.index');
+        $data =category_barang::all();
+        return view('pages.category.index',compact('data'));
     }
 
     /**
@@ -33,8 +36,11 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+        $data = $request->all();
+        category_barang::create($data);
+        return redirect()->route('category.index')->with('success','Data Berhasil Ditambahkan');
+
     }
 
     /**
@@ -79,6 +85,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = category_barang::find($id);
+        $category->delete();
+        Alert::success('Sukses', "Data berhasil dihapus!");
+
+        return redirect()->back();
     }
 }

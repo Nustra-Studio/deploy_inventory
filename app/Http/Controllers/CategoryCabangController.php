@@ -13,7 +13,7 @@ class CategoryCabangController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.category_cabang.index');
     }
 
     /**

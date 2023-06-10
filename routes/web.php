@@ -16,6 +16,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DistribusiController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\CategoryCabangController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

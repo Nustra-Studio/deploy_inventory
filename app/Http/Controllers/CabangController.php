@@ -34,7 +34,12 @@ class CabangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // create database for request data
+        $data = $request->all();
+        // create database for cabang
+        cabang::create($data);
+        // redirect to cabang index
+        return redirect()->route('cabang.index')->with('success', 'Data cabang berhasil ditambahkan');
     }
 
     /**

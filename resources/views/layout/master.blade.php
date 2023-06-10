@@ -44,7 +44,8 @@ License: For each use you must have a valid license purchased only from above li
   @stack('style')
 </head>
 <body class="sidebar-dark" data-base-url="{{url('/')}}">
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  @include('sweetalert::alert')
   <script src="{{ asset('assets/js/spinner.js') }}"></script>
 
   <div class="main-wrapper" id="app">

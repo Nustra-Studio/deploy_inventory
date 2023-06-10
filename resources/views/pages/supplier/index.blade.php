@@ -17,7 +17,7 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Data Supplier</h4>
-            <a href="{{ url('/barang/create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+            <a href="{{ url('/supllier/create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
       <div class="card-body">
         {{-- <p class="text-muted mb-3">Read the <a href="https://datatables.net/" target="_blank"> Official DataTables Documentation </a>for a full list of instructions and other options.</p> --}}
         

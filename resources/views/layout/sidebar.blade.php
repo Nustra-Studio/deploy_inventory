@@ -58,6 +58,13 @@
           <span class="link-title">Category</span>
         </a>
       </li>
+      <li class="nav-item {{ active_class(['/categorycabang']) }}">
+        <a href="{{ url('/categorycabang') }}" 
+        class="nav-link {{ active_class(['/categorycabang']) }}">
+          <i class="link-icon" data-feather="git-branch"></i>
+          <span class="link-title">Category Cabang</span>
+        </a>
+      </li>
       <li class="nav-item nav-category">Distribusi</li>
       <li class="nav-item {{ active_class(['/distribusi']) }}">
         <a href="{{ url('/distribusi') }}" class="nav-link">

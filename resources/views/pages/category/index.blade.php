@@ -31,15 +31,22 @@
               </tr>
             </thead>
             <tbody id="tb-category">
-              <tr>
-                <td>1</td>
-                <td>System Architect</td>
-                <td>
-                  <div class="text-end">
-                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                  </div>
-              </tr>
+              @foreach ($data as $item)
+                 
+                  <tr>
+                    <td>{{ $loop->index+1 }}</td>
+                    <td> {{$item->name}}</td>
+                    <td>
+                      <div class="text-end">
+                        <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                        <form id="form-delete-{{ $item->id }}" action="{{ route('category.destroy', $item->id) }}" method="POST" style="display: none;">
+                          @csrf
+                          @method('DELETE')
+                      </form>
+                      <button class="btn btn-danger btn-sm delete-button" data-form-delete="{{ $item->id }}">Delete</button>
+                      </div>
+                  </tr>
+              @endforeach
               
             </tbody>
           </table>
@@ -48,6 +55,36 @@
     </div>
   </div>
 </div>
+<script>
+  // Tambahkan event listener untuk tombol atau tautan
+  document.addEventListener('DOMContentLoaded', function () {
+      var deleteButtons = document.getElementsByClassName('delete-button');
+
+      Array.from(deleteButtons).forEach(function (button) {
+          button.addEventListener('click', function (event) {
+              event.preventDefault();
+              var formId = this.getAttribute('data-form-delete');
+
+              Swal.fire({
+                  title: 'Anda yakin?',
+                  text: "Tindakan ini tidak dapat diurungkan!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#d33',
+                  cancelButtonColor: '#3085d6',
+                  confirmButtonText: 'Ya, hapus!',
+                  cancelButtonText: 'Batal'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Mengirimkan request penghapusan
+                      document.getElementById('form-delete-' + formId).submit();
+                  }
+              });
+          });
+      });
+  });
+</script>
+
 @endsection
 @push('plugin-scripts')
   <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
