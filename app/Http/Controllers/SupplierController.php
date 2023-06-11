@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\suplier;
 
 class SupplierController extends Controller
 {
@@ -13,7 +15,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return view('pages.supplier.index');
+        $data = suplier::all();
+        return view('pages.supplier.index' , compact('data'));
     }
 
     /**
@@ -34,7 +37,16 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data =[
+            'nama' => $request->nama,
+            'product' => $request->supplier,
+            'keterangan' => $request->keterangan,
+            'alamat' => $request->alamat,
+            'telepon' => $request->telepon,
+            'category_barang_id'=> $request->category
+        ];
+        DB::table('supliers')->insert($data);
+        return redirect()->route('supllier.index')->with('success', 'Data supplier berhasil ditambahkan');
     }
 
     /**

@@ -15,14 +15,19 @@
 
         <h6 class="card-title">Input Supplier</h6>
 
-        <form class="forms-sample">
+        <form 
+        action="{{ route('supllier.store') }}" 
+        method="POST" 
+        enctype="multipart/form-data"    
+        class="forms-sample">
+            @csrf
         <div class="mb-3">
             <label for="exampleInputUsername1" class="form-label">Nama</label>
             <input type="text" name="nama" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama ">
         </div>
         <div class="mb-3">
             <label for="exampleInputUsername2" class="form-label">Supplier</label>
-            <input name="Supplier" type="text" class="form-control" id="exampleInputUsername2" autocomplete="off" placeholder="Supplier">
+            <input name="supplier" type="text" class="form-control" id="exampleInputUsername2" autocomplete="off" placeholder="Supplier">
         </div>
         <div class="mb-3">
             <label for="exampleInputUsername3" class="form-label">Telepon</label>
@@ -36,13 +41,20 @@
             <label for="exampleFormControlSelect1" class="form-label">Category Supplier</label>
             <select class="form-select" name="category" id="exampleFormControlSelect1">
                 <option selected disabled>Select your Category Supplier</option>
-                <option>12-18</option>
-                <option>18-22</option>
-                <option>22-30</option>
-                <option>30-60</option>
-                <option>Above 60</option>
+                @php
+                    use App\Models\category_barang;
+                    $categorys = category_barang::all();
+                @endphp
+                @foreach ($categorys as $item)
+                <option value="{{$item->id}}">{{$item->name}}</option>
+                @endforeach
             </select>
         </div>
+        <div class="mb-3">
+            <label for="exampleInputUsername4" class="form-label">Keterangan</label>
+            <input type="text" name="keterangan" class="form-control" id="exampleInputUsername4" autocomplete="off" placeholder="Note">
+        </div>
+
         <button type="submit" class="btn btn-primary me-2">Submit</button>
         <button  
         onclick="window.history.go(-1); return false;"

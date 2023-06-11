@@ -31,26 +31,34 @@
                 <th>Alamat</th>
                 <th>Telepon</th>
                 <th>Suplayer</th>
-                <th>Product</th>
                 <th>Category Product</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody id="tb-category">
+              @foreach ($data as $item)
               <tr>
-                <td>1</td>
-                <td>System Architect</td>
-                <td>System Architect</td>
-                <td>System Architect</td>
-                <td>System Architect</td>
-                <td>System Architect</td>
-                <td>System Architect</td>
+                <td>{{ $loop->index+1 }}</td>
+                <td> {{$item->nama}}</td>  
+                <td> {{$item->alamat}}</td>
+                <td> {{$item->telepon}}</td>
+                <td> {{$item->product}}</td>
+                @php
+                    $categorys = App\Models\category_barang::find($item->category_barang_id);
+                    $category = $categorys->name;
+                @endphp
+                <td> {{$category}}</td>
                 <td>
                   <div class="text-end">
                     <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                    <form id="form-delete-{{ $item->id }}" action="{{ route('category.destroy', $item->id) }}" method="POST" style="display: none;">
+                      @csrf
+                      @method('DELETE')
+                  </form>
+                  <button class="btn btn-danger btn-sm delete-button" data-form-delete="{{ $item->id }}">Delete</button>
                   </div>
               </tr>
+          @endforeach
               
             </tbody>
           </table>
