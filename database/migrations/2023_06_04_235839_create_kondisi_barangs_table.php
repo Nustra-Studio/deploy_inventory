@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('kondisi_barangs', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             // string name keterangan
             $table->string('name');
             $table->string('keterangan');
             // id_type_barang yang berhubungan dengan tabel type_barangs
-            $table->foreignId('id_type_barang')->constrained('type_barangs');
+            $table->string('id_type_barang');
             $table->timestamps();
         });
     }

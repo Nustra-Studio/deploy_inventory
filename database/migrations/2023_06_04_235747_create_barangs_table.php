@@ -13,18 +13,19 @@ return new class extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('category_barangs');
+            $table->string('uuid')->unique();
+            $table->string('category_id');
             $table->string('sub_id');
-            $table->string('kode_barang');
-            $table->string('harga');
-            $table->string('harga_jual');
-            $table->string('harga_pokok');
-            $table->string('harga_grosir');
+            $table->string('kode_barang')->nullable();
+            $table->string('harga')->nullable();
+            $table->string('harga_jual')->nullable();
+            $table->string('harga_pokok')->nullable();
+            $table->string('harga_grosir')->nullable();
             $table->integer('stok');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->string('name');
-            $table->string('merek_barang');
-            $table->foreignId('type_barang_id')->constrained('type_barangs');
+            $table->string('merek_barang')->nullable();
+            $table->string('type_barang_id');
             $table->timestamps();
         });
     }

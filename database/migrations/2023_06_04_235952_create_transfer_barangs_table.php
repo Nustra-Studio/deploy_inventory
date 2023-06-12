@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->integer('id_transction');
             // id_cabang berhubungan dengan tabel cabangs
-            $table->foreignId('id_cabang')->constrained('cabangs');
+            $table->string('id_cabang');
             $table->timestamps();
         });
     }

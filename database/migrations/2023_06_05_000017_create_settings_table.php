@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             // string user_id gudang_id inventory_id printer bahasa
             $table->string('user_id');
             $table->string('gudang_id');

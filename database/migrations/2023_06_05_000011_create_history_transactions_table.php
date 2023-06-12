@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('history_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             // string name satuan  kode_brang kode_transcation_suppliers  
             $table->string('name');
             $table->string('satuan');

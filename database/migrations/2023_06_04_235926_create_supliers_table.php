@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('supliers', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             // string nama alamat telepon suplayer product 
             $table->string('nama');
             $table->string('alamat');
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('product');
             $table->string('keterangan');
             // category_barang berhubungan dengan tabel category_barang
-            $table->foreignId('category_barang_id')->constrained('category_barangs');
+            $table->string('category_barang_id');
             $table->timestamps();
         });
     }

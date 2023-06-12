@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('cabangs', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             // string nama kepala_cabang telepon alamat category_id keterangan
             $table->string('nama');
             $table->string('kepala_cabang');

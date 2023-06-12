@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('stoks', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             // id_barang diambil dari tabel barang
-            $table->foreignId('id_barang')->constrained('barangs');
+            $table->string('id_barang');
             // interger in_stock stock out_stock min_stock min_out_stock
             $table->integer('in_stock');
             $table->integer('out_stock');

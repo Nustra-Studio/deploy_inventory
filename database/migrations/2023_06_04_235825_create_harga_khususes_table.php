@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('harga_khusus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_barang')->constrained('barangs');
+            $table->string('uuid')->unique();
+            $table->string('id_barang');
             // interger harga jumlah_minimal diskon and 
             // string keterangan satuan
             $table->integer('harga');
