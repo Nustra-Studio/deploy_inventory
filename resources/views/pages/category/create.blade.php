@@ -19,16 +19,16 @@
             method="POST" 
             enctype="multipart/form-data"    
             class="forms-sample">
-                @csrf
+                @csrf 
+                @php
+                $uniqueValue = hash('sha256', uniqid(mt_rand(), true));
+
+                @endphp
+                <input type="text"  value="{{$uniqueValue}}" name="uuid">
             <div class="mb-3">
                 <label for="exampleInputUsername1" class="form-label">Nama</label>
                 <input type="text" name="name" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Catgory Barang">
             </div>
-            @php
-                $uniqueValue = hash('sha256', uniqid(mt_rand(), true));
-
-            @endphp
-            <input type="text" hidden value="$uniqueValue" name="uuid">
             <button type="submit" class="btn btn-primary me-2">Submit</button>
             <button  
             onclick="window.history.go(-1); return false;"
