@@ -29,9 +29,16 @@ Route::group(['prefix' => 'error'], function(){
     Route::get('500', function () { return view('pages.error.500'); });
 });
     Route::resource('/barang', BarangController::class);
+    Route::get('/supllier/barang/{uuid}', 'SupplierController@barang')->name('supplier.barang');
+    Route::get('/input-barang', 'BarangController@input')->name('barang.input');
+    Route::post('/input-barang', 'BarangController@inputcreate')->name('barang.input.create');
+
     // route resource category,cabang,supplier,distribusi,transaction
+
     Route::resource('/category', CategoryController::class);
     Route::resource('/categorycabang', CategoryCabangController::class);
+
+
     Route::resource('/cabang', CabangController::class);
     Route::resource('/supllier', SupplierController::class);
     Route::resource('/distribusi', DistribusiController::class);

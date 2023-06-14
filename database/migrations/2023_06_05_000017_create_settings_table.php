@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->unique();
             // string user_id gudang_id inventory_id printer bahasa
-            $table->string('user_id');
-            $table->string('gudang_id');
-            $table->string('inventory_id');
-            $table->string('printer');
-            $table->string('bahasa');
+            $table->string('user_id')->nullable();
+            $table->string('gudang_id')->nullable();;
+            $table->string('inventory_id')->nullable();;
+            $table->string('printer')->nullable();;
+            $table->string('bahasa')->nullable();;
             $table->timestamps();
         });
     }

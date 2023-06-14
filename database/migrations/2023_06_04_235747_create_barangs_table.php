@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->unique();
             $table->string('category_id');
-            $table->string('sub_id');
+            $table->string('id_supplier');
             $table->string('kode_barang')->nullable();
             $table->string('harga')->nullable();
             $table->string('harga_jual')->nullable();

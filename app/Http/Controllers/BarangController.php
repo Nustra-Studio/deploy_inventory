@@ -16,6 +16,10 @@ class BarangController extends Controller
         return view ('pages.barang.index');
     }
 
+    public function input()
+    {
+        return view ('pages.barang.input_barang');
+    }
     /**
      * Show the form for creating a new resource.
      *

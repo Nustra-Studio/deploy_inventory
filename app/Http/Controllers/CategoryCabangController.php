@@ -42,6 +42,7 @@ class CategoryCabangController extends Controller
         $datanew = [
             'name' => $data['name'],
             'keterangan' => $data['keterangan'],
+            'uuid' => $data['uuid'],
         ];
         DB::table('category_cabangs')->insert($datanew);
         return redirect()->route('categorycabang.index')->with('success','Data Berhasil Ditambahkan');

@@ -21,6 +21,11 @@
             enctype="multipart/form-data"    
             class="forms-sample">
                 @csrf
+                @php
+                $uniqueValue = hash('sha256', uniqid(mt_rand(), true));
+
+                @endphp
+                <input type="text" hidden value="{{$uniqueValue}}" name="uuid">
             <div class="mb-3">
                 <label for="exampleInputUsername1" class="form-label">Nama</label>
                 <input type="text" name="name" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Catgory Barang">

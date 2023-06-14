@@ -48,6 +48,7 @@ class CabangController extends Controller
             'kepala_cabang' => $data['kepala_cabang'],
             'telepon' => $data['telepon'],
             'category_id' => $data['category_id'],
+            'uuid'=> $data['uuid']
         ];
         DB::table('cabangs')->insert($newdata);
         return redirect()->route('cabang.index')->with('success', 'Data cabang berhasil ditambahkan');

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('harga_pokok');
             $table->integer('harga_jual');
             $table->integer('id_supllayer');
+            $table->string('keterangan')->nullable();
             // time date masuk barang
             $table->time('masuk_barang');
             $table->timestamps();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\suplier;
+use App\Models\barang;
 
 class SupplierController extends Controller
 {
@@ -17,6 +18,12 @@ class SupplierController extends Controller
     {
         $data = suplier::all();
         return view('pages.supplier.index' , compact('data'));
+    }
+    public function barang($uuid)
+    {
+        $data = suplier::all();
+        // $data = $uuid;
+        return view('pages.supplier.barang',compact('data'));
     }
 
     /**
@@ -43,7 +50,8 @@ class SupplierController extends Controller
             'keterangan' => $request->keterangan,
             'alamat' => $request->alamat,
             'telepon' => $request->telepon,
-            'category_barang_id'=> $request->category
+            'category_barang_id'=> $request->category,
+            'uuid' => $request->uuid,
         ];
         DB::table('supliers')->insert($data);
         return redirect()->route('supllier.index')->with('success', 'Data supplier berhasil ditambahkan');

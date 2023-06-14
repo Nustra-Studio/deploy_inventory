@@ -34,36 +34,68 @@
         <div class="collapse {{ show_class(['data/*']) }}" id="data">
           <ul class="nav sub-menu">
             <li class="nav-item">
-              <a href="{{ url('/barang') }}" 
-              class="nav-link {{ active_class(['/barang']) }}">
-              Barang</a>
-            </li>
-            <li class="nav-item">
               <a href="{{ url('/supllier') }}" 
               class="nav-link {{ active_class(['/dupllier']) }}">
-              Supllier</a>
+              Suplliers</a>
             </li>
             <li class="nav-item">
               <a href="{{ url('/cabang') }}" 
               class="nav-link {{ active_class(['/cabang']) }}">
               Cabang</a>
             </li>
+            <li class="nav-item">
+              <a href="{{ url('/categorycabang') }}" 
+              class="nav-link {{ active_class(['/cabang']) }}">
+              Category Cabang</a>
+            </li>
+          </ul>
+        </div>
+        
+      </li>
+      <li class="nav-item {{ active_class(['barang/*']) }}">
+        <a class="nav-link" data-bs-toggle="collapse" href="#data-barang" role="button" aria-expanded="{{ is_active_route(['email/*']) }}" aria-controls="email">
+          <i class="link-icon" data-feather="inbox"></i>
+          <span class="link-title">Barang</span>
+          <i class="link-arrow" data-feather="chevron-down"></i>
+        </a>
+        <div class="collapse {{ show_class(['barang/*']) }}" id="data-barang">
+          <ul class="nav sub-menu">
+            <li class="nav-item">
+              <a href="{{ url('/barang') }}" 
+              class="nav-link {{ active_class(['/barang']) }}">
+              Barang</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/category') }}" 
+              class="nav-link {{ active_class(['/Category']) }}">
+              Category</a>
+            </li>
           </ul>
         </div>
       </li>
-      <li class="nav-item {{ active_class(['/category']) }}">
-        <a href="{{ url('/category') }}" 
-        class="nav-link {{ active_class(['/category']) }}">
-          <i class="link-icon" data-feather="list"></i>
-          <span class="link-title">Category</span>
+      <li class="nav-item {{ active_class(['supplier/*']) }}">
+        <a class="nav-link" data-bs-toggle="collapse" href="#data-supplier" role="button" aria-expanded="{{ is_active_route(['email/*']) }}" aria-controls="email">
+          <i class="link-icon" data-feather="package"></i>
+          <span class="link-title">Supplier</span>
+          @php
+              $supplier = \App\Models\suplier::all();
+          @endphp
+          <i class="link-arrow" data-feather="chevron-down"></i>
         </a>
-      </li>
-      <li class="nav-item {{ active_class(['/categorycabang']) }}">
-        <a href="{{ url('/categorycabang') }}" 
-        class="nav-link {{ active_class(['/categorycabang']) }}">
-          <i class="link-icon" data-feather="git-branch"></i>
-          <span class="link-title">Category Cabang</span>
-        </a>
+        <div class="collapse {{ show_class(['supplier/*']) }}" id="data-supplier">
+          @php
+          $supplier = \App\Models\suplier::all();
+          @endphp
+          <ul class="nav sub-menu">
+            @foreach ($supplier as $item)
+            <li class="nav-item">
+              <a href="{{ route('supplier.barang', ['uuid' => $item->uuid]) }}" 
+              class="nav-link {{ active_class(['/supplier']) }}">
+              {{$item->nama}}</a>
+            </li>
+            @endforeach
+          </ul>
+        </div>
       </li>
       <li class="nav-item nav-category">Distribusi</li>
       <li class="nav-item {{ active_class(['/distribusi']) }}">
