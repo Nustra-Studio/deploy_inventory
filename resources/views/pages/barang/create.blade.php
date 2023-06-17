@@ -1,72 +1,133 @@
 @extends('layout.master')
 
 @section('content')
-<nav class="page-breadcrumb">
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/cabang">Cabang</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Cabang</li>
-</ol>
-</nav>
 @php
     use App\Models\category_cabang;
     $cabang = category_cabang::all();
 @endphp
-<div class="row">
-<div class="col-md-8 grid-margin stretch-card">
-    <div class="card">
-    <div class="card-body">
-
-        <h6 class="card-title">Input Cabang</h6>
-        <form 
-        action="{{ route('cabang.store') }}" 
-        method="POST" 
-        enctype="multipart/form-data"    
-        class="forms-sample">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+            <h6 class="card-title">Input Mask</h6>
+            <form 
+            action="{{ route('barang.store') }}" 
+            method="POST" 
+            enctype="multipart/form-data"    
+            class="forms-sample">
             @csrf
-            @php
-            $uniqueValue = hash('sha256', uniqid(mt_rand(), true));
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label">Product Name:</label>
+                        <input class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Search for a product..." />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Supplier:</label>
+                        <select class="form-control" id="supplier-select">
+                            <option value="">All Suppliers</option>
+                            <option value="supplier1">Supplier 1</option>
+                            <option value="supplier2">Supplier 2</option>
+                            <option value="supplier3">Supplier 3</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Rest of the form content -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">category</label>
+                        <select class="form-control" id="supplier-select">
+                            <option value="">All Suppliers</option>
+                            <option value="supplier1">Supplier 1</option>
+                            <option value="supplier2">Supplier 2</option>
+                            <option value="supplier3">Supplier 3</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Jumlah</label>
+                        <input class="form-control" name="jumlah" type="number"/>
+                    </div>
+                </div>
+                <!-- Rest of the form content -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Harga Pokok</label>
+                        <input class="form-control mb-4 mb-md-0" name="harga_pokok" type="number" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Harga Jual</label>
+                        <input class="form-control" name="harga_jual" type="number" />
+                    </div>
+                </div>
+                <label for="">Harga Khusus</label>
+        <table class="table table-bordered" id="tabelhargakhusus">
+            <thead>
+                <tr>
+                    <th>Keterangan</th>
+                    <th>Jumlah Minimal</th>
+                    <th>Harga</th>
+                    <th>Diskon</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" name="nama[]">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="jumlah_minimal[]">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="harga[]">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="diskon[]">
+                    </td>
+                    <td class="text-center">
+                        <button class="btn btn-sm float-right btn-info" id="add_tr2" type="button"><i class="fa fa-plus"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-            @endphp
-            <input type="text" hidden value="{{$uniqueValue}}" name="uuid">
-        <div class="mb-3">
-            <label for="exampleInputUsername1" class="form-label">Nama</label>
-            <input type="text" name="nama" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Cabang">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputUsername2" class="form-label">Kepala</label>
-            <input name="kepala_cabang" type="text" class="form-control" id="exampleInputUsername2" autocomplete="off" placeholder="Kepala Cabang">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputUsername3" class="form-label">Telepon</label>
-            <input type="number" name="telepon" class="form-control" id="exampleInputUsername3" autocomplete="off" placeholder="Telepon">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputUsername4" class="form-label">Alamat</label>
-            <input type="text" name="alamat" class="form-control" id="exampleInputUsername4" autocomplete="off" placeholder="Alamat Cabang">
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlSelect1" class="form-label">Category Cabang</label>
-            <select class="form-select" name="category_id" id="exampleFormControlSelect1">
-                <option selected disabled>Select your Category Cabang</option>
-                @foreach ($cabang as $item)
-                <option value="{{$item->id}}">{{$item->name}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputUsername4" class="form-label">Keterangan</label>
-            <input type="text" name="keterangan" class="form-control" id="exampleInputUsername4" autocomplete="off" placeholder="Keterangan Cabang">
-        </div>
+            <div class="mt-3">
+        <!-- Rest of the form content -->
         <button type="submit" class="btn btn-primary me-2">Submit</button>
-        <button  
-        onclick="window.history.go(-1); return false;"
-        type="submit"
-        value="Cancel" class="btn btn-secondary">Cancel</button>
-        </form>
-
+        <button onclick="window.history.go(-1); return false;" type="submit" value="Cancel" class="btn btn-secondary">Cancel</button>
+                    </div>
+            
+            </div>
+        </div>
+ 
     </div>
     </div>
-</div>
-</div>
-
+    </form>
+    <script>
+        $('#add_tr2').on('click', function (e) {
+            var newRowContent =
+                `<tr id="tr2_` + ($("#tabelhargakhusus > tbody > tr").length + 1) + `">` +
+                `<td>` +
+                `<input type="text" class="form-control" name="nama[]">` +
+                `</td>` +
+                `<td>` +
+                `<input type="text" class="form-control" name="jumlah_minimal[]">` +
+                `</td>` +
+                `<td>` +
+                `<input type="text" class="form-control" name="harga[]">` +
+                `</td>` +
+                `<td>` +
+                `<input type="text" class="form-control" name="diskon[]">` +
+                `</td>` +
+                `<td class="text-center">` +
+                `<button class="btn btn-sm btn-danger" onclick="deletetr2(` + ($("#tabelhargakhusus > tbody > tr").length + 1) + `)" type="button"><i class="fa fa-minus"></i></button>` +
+                `</td>` +
+                `</tr>`;
+            $("#tabelhargakhusus tbody").append(newRowContent);
+        });
+    
+        function deletetr2(id) {
+            document.getElementById("tr2_" + id).remove();
+        }
+    </script>
 @endsection
+

@@ -24,9 +24,11 @@ License: For each use you must have a valid license purchased only from above li
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <!-- End fonts -->
-  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Memuat CSS Font Awesome dari CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!-- CSRF Token -->
-  <meta name="_token" content="{{ csrf_token() }}">
+  {{-- <meta name="_token" content="{{ csrf_token() }}"> --}}
   
   <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
 

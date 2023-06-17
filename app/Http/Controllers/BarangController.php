@@ -27,7 +27,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        return view ('pages.barang.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

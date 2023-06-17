@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nama_api');
             $table->string('status_api')->nullable();
             $table->string('keterangan')->nullable();
-            table->string('id_cronjob')->nullable();
+            $table->string('id_cronjob')->nullable();
             $table->timestamps();
         });
     }
