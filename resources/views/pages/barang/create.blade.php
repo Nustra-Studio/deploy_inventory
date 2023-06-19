@@ -3,7 +3,11 @@
 @section('content')
 @php
     use App\Models\category_cabang;
+    use App\Models\suplier;
+    use App\Models\category_barang;
     $cabang = category_cabang::all();
+    $supllier = suplier::all();
+    $category = category_barang::all();
 @endphp
     <div class="row">
         <div class="col-md-12 grid-margin">
@@ -18,7 +22,6 @@
             @csrf
             @php
             $uniqueValue = hash('sha256', uniqid(mt_rand(), true));
-
             @endphp
             <input type="text" hidden name="uuid" id="" value="{{$uniqueValue}}">
                 <div class="row mb-3">
@@ -26,17 +29,16 @@
                         <label class="form-label">Product Name:</label>
                         <input name="name" class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Search for a product..." />
                     </div>
-                    <div class="col-3">
+                    <div class="col-md-3">
                         <label class="form-label">Merek Barang</label>
                         <input name="merek_barang" class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Merek Barang" />
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Supplier:</label>
                         <select class="form-control" name="supplier" id="supplier-select">
-                            <option value="">All Suppliers</option>
-                            <option value="supplier1">Supplier 1</option>
-                            <option value="supplier2">Supplier 2</option>
-                            <option value="supplier3">Supplier 3</option>
+                            @foreach ($supllier as $item)
+                                <option value="{{$item->uuid}}">{{$item->nama}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -45,10 +47,9 @@
                     <div class="col-md-6">
                         <label class="form-label">category</label>
                         <select name="category_barang" class="form-control" id="supplier-select">
-                            <option value="">All Suppliers</option>
-                            <option value="supplier1">Supplier 1</option>
-                            <option value="supplier2">Supplier 2</option>
-                            <option value="supplier3">Supplier 3</option>
+                            @foreach ($category as $item)
+                                <option value="{{$item->uuid}}">{{$item->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">

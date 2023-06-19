@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\barang;
 use App\Models\harga_khusus;
+use App\Models\category_barang;
 
 
 class BarangController extends Controller
@@ -18,7 +19,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $data = barang::all();
+        $data = barang::where('uuid', '!=', 'hidden')->get();
         return view ('pages.barang.index',compact('data'));
     }
 
@@ -46,7 +47,7 @@ class BarangController extends Controller
     {   
         $data_terakhir = DB::table('barangs')->latest('kode_barang')->first();
         $kode_terakhir = $data_terakhir->kode_barang;
-        $kategori = $request->category_barang;
+        $kategori = category_barang::where('uuid',$request->category_barang)->value('name') ;
         $bulan = date('m');
         $tahun = date('y');
         if ($kode_terakhir > 999) {

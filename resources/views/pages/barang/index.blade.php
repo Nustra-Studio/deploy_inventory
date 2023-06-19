@@ -38,14 +38,14 @@
             <tbody>
               @foreach ($data as $item)
               @php
-                  $category = DB::table('category_barangs')->where('id', $item->category_id)->first();
+                  $category = DB::table('category_barangs')->where('uuid', $item->category_id)->first();
               @endphp
               <tr>
                 <td>{{ $loop->index+1 }}</td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->kode_barang}}</td>
                 <td>{{$item->kode_barang}}</td>
-                <td>{{$item->category_id}}</td>
+                <td>{{$category->name}}</td>
                 <td>{{$item->harga_pokok}}</td>
                 <td>{{$item->harga_jual}}</td>
                 <td>{{$item->stok}}</td>

@@ -45,7 +45,6 @@
         <div class="mb-3">
             <label for="exampleFormControlSelect1" class="form-label">Category Supplier</label>
             <select class="form-select" name="category" id="exampleFormControlSelect1">
-                <option selected disabled>Select your Category Supplier</option>
                 @php
                     use App\Models\category_barang;
                     $categorys = category_barang::all();

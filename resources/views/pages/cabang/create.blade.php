@@ -47,7 +47,6 @@
             <div class="mb-3">
                 <label for="exampleFormControlSelect1" class="form-label">Category Cabang</label>
                 <select class="form-select" name="category_id" id="exampleFormControlSelect1">
-                    <option selected disabled>Select your Category Cabang</option>
                     @foreach ($cabang as $item)
                     <option value="{{$item->id}}">{{$item->name}}</option>
                     @endforeach
