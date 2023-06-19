@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->string('name');
             $table->string('merek_barang')->nullable();
-            $table->string('type_barang_id');
+            $table->string('type_barang_id')->nullable();
             $table->timestamps();
         });
     }

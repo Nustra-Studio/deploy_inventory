@@ -16,14 +16,23 @@
             enctype="multipart/form-data"    
             class="forms-sample">
             @csrf
+            @php
+            $uniqueValue = hash('sha256', uniqid(mt_rand(), true));
+
+            @endphp
+            <input type="text" hidden name="uuid" id="" value="{{$uniqueValue}}">
                 <div class="row mb-3">
                     <div class="col">
                         <label class="form-label">Product Name:</label>
-                        <input class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Search for a product..." />
+                        <input name="name" class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Search for a product..." />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-3">
+                        <label class="form-label">Merek Barang</label>
+                        <input name="merek_barang" class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Merek Barang" />
+                    </div>
+                    <div class="col-md-3">
                         <label class="form-label">Supplier:</label>
-                        <select class="form-control" id="supplier-select">
+                        <select class="form-control" name="supplier" id="supplier-select">
                             <option value="">All Suppliers</option>
                             <option value="supplier1">Supplier 1</option>
                             <option value="supplier2">Supplier 2</option>
@@ -35,7 +44,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">category</label>
-                        <select class="form-control" id="supplier-select">
+                        <select name="category_barang" class="form-control" id="supplier-select">
                             <option value="">All Suppliers</option>
                             <option value="supplier1">Supplier 1</option>
                             <option value="supplier2">Supplier 2</option>
