@@ -50,9 +50,9 @@ class BarangController extends Controller
         $bulan = date('m');
         $tahun = date('y');
         if ($kode_terakhir > 999) {
-                $nomorUrut = str_pad($nomorUrutTerakhir, 4, '0', STR_PAD_LEFT);
+                $nomorUrut = str_pad(mt_rand(1000, 9999), 4, '0', STR_PAD_LEFT);
             } else {
-                $nomorUrut = str_pad($nomorUrutTerakhir, 3, '0', STR_PAD_LEFT);
+                $nomorUrut = str_pad(mt_rand(1, 999), 3, '0', STR_PAD_LEFT);
             }
 
         $kode = $kategori . $bulan . $tahun . $nomorUrut;
