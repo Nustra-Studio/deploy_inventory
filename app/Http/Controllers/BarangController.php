@@ -22,6 +22,11 @@ class BarangController extends Controller
         $data = barang::where('uuid', '!=', 'hidden')->get();
         return view ('pages.barang.index',compact('data'));
     }
+    public function resource( Request $request)
+    {
+        $data = barang::where('uuid', '=' ,"$request->uuid")->get();
+        return response()->json($data, 200);
+    }
 
     public function input()
     {

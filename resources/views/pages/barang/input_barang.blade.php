@@ -3,7 +3,9 @@
 @section('content')
 @php
     use App\Models\category_cabang;
+    use App\Models\suplier;
     $cabang = category_cabang::all();
+    $supplier = suplier::all();
 @endphp
     <div class="row">
         <div class="col-md-12 grid-margin">
@@ -19,10 +21,9 @@
                     <div class="col-md-6">
                         <label class="form-label">Supplier:</label>
                         <select class="form-control" id="supplier-select">
-                            <option value="">All Suppliers</option>
-                            <option value="supplier1">Supplier 1</option>
-                            <option value="supplier2">Supplier 2</option>
-                            <option value="supplier3">Supplier 3</option>
+                            @foreach ($supplier as $item)
+                            <option value="{{$item->uuid}}">{{$item->nama}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -30,6 +31,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Date:</label>
+                        
                         <input class="form-control mb-4 mb-md-0" data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="dd/mm/yyyy" />
                     </div>
                     <div class="col-md-6">

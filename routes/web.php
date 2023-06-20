@@ -28,6 +28,11 @@ Route::group(['prefix' => 'error'], function(){
     Route::get('404', function () { return view('pages.error.404'); });
     Route::get('500', function () { return view('pages.error.500'); });
 });
+// route resource  
+    Route::prefix('resource')->group(function () {
+        // buat kan route barang resource metode get 
+        Route::get('/barang', 'BarangController@resource')->name('barang.resource');
+    });
     Route::resource('/barang', BarangController::class);
     Route::get('/supllier/barang/{uuid}', 'SupplierController@barang')->name('supplier.barang');
     Route::get('/input-barang', 'BarangController@input')->name('barang.input');
