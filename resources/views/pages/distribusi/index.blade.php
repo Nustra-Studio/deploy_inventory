@@ -10,7 +10,10 @@
     <li class="breadcrumb-item active" aria-current="page">Distribusi</li>
   </ol>
 </nav>
-
+  @php
+    use App\Models\cabang;
+      $data = cabang::all();
+  @endphp
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
@@ -31,15 +34,21 @@
             </thead>
             <tbody id="tb-category">
               <tr>
-                <td>1</td>
-                <td>System Architect</td>
-                <td>
-                  <div class="text-end">
-                    <a href="" class="btn btn-primary btn-icon">
-                      <i data-feather="repeat"></i>
-                    </a>
-                  </div>
-              </tr>
+                  @foreach ($data as $item)
+                    <td>{{$loop->index+1}}</td>
+                    <td>{{$item->nama}}</td>
+                    <td>{{$item->kepala_cabang}}</td>
+                    <td>{{$item->alamat}}</td>
+                    <td>{{$item->telepon}}</td>
+                    <td>
+                      <div class="text-center">
+                        <a href="" class="btn btn-primary btn-icon">
+                          <i data-feather="repeat"></i>
+                        </a>
+                      </div>
+                    </td>
+                  @endforeach
+                </tr>
               
             </tbody>
           </table>

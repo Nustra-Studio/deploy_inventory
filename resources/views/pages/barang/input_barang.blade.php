@@ -11,7 +11,7 @@
         <div class="col-md-12 grid-margin">
         <div class="card">
             <div class="card-body">
-            <h6 class="card-title">Input Mask</h6>
+            <h6 class="card-title">Input Barang</h6>
                 <form class="forms-sample">
                 <div class="row mb-3">
                     <div class="col">
@@ -30,28 +30,25 @@
                 <!-- Rest of the form content -->
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label class="form-label">Date:</label>
+                        <label class="form-label">Harga Pokok</label>
                         
-                        <input class="form-control mb-4 mb-md-0" data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="dd/mm/yyyy" />
+                        <input class="form-control mb-4 mb-md-0"/>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Time (12 hour):</label>
-                        <input class="form-control" data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="hh:mm tt" />
+                        <label class="form-label">Harga Jual</label>
+                        <input class="form-control"  />
                     </div>
                 </div>
                 <!-- Rest of the form content -->
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label class="form-label">Phone:</label>
-                        <input class="form-control mb-4 mb-md-0" data-inputmask-alias="(+99) 9999-9999" />
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Credit card:</label>
-                        <input class="form-control" data-inputmask-alias="9999-9999-9999-9999" />
+                        <label class="form-label">Jumlah</label>
+                        <input class="form-control mb-4 mb-md-0"/>
                     </div>
                 </div>
                 <!-- Rest of the form content -->
-                <input type="button" class="btn btn-primary me-2" value="Tambah" onclick="addRow()" />
+                <input type="button" class="btn btn-warning me-2" value="Tambah Barang"data-bs-toggle="modal" data-bs-target="#exampleModalLongScollable" />
+                <input type="button" class="btn btn-success me-2" value="Tambah" onclick="addRow()" />
                 <input type="submit" class="btn btn-primary me-2" value="Kirim" />
                 <button onclick="window.history.go(-1); return false;" type="submit" value="Cancel" class="btn btn-secondary">Cancel</button>
             </form>
@@ -60,15 +57,16 @@
         </div>
         <div class="card mt-3">
             <div class="card-body">
-                <h6 class="card-title">Input Mask</h6>
+                <h6 class="card-title">Tabel Input</h6>
                 <div class="tabel-sementara" class="mt-5">
                     <div class="table-responsive">
                         <table id="product-table" class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Jumlah Barang</th>
-                                    <th>Harga per Barang</th>
                                     <th>Nama Barang</th>
+                                    <th>Jumlah Barang</th>
+                                    <th>Harga Pokok Barang</th>
+                                    <th>Harga jual Barang</th>
                                     <th>Supplier Barang</th>
                                     <th>Barcode</th>
                                 </tr>
@@ -78,6 +76,148 @@
                             </tbody>
                         </table>
                     </div>
+                    <!-- Modal -->
+            <div class="modal fade bd-example-modal-lg" id="exampleModalLongScollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Create Data Barang</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @php
+                            use App\Models\category_barang;
+                            $supllier = suplier::all();
+                            $category = category_barang::all();
+                        @endphp
+                                <form 
+                                action="{{ route('barang.store') }}" 
+                                method="POST" 
+                                enctype="multipart/form-data"    
+                                class="forms-sample">
+                                @csrf
+                                @php
+                                $uniqueValue = hash('sha256', uniqid(mt_rand(), true));
+                                @endphp
+                                <input type="text" hidden name="uuid" id="" value="{{$uniqueValue}}">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="form-label">Product Name:</label>
+                                            <input name="name" class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Search for a product..." />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Merek Barang</label>
+                                            <input name="merek_barang" class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Merek Barang" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Supplier:</label>
+                                            <select class="form-control" name="supplier" id="supplier-select">
+                                                @foreach ($supllier as $item)
+                                                    <option value="{{$item->uuid}}">{{$item->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Rest of the form content -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">category</label>
+                                            <select name="category_barang" class="form-control" id="supplier-select">
+                                                @foreach ($category as $item)
+                                                    <option value="{{$item->uuid}}">{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Jumlah</label>
+                                            <input class="form-control" name="jumlah" type="number"/>
+                                        </div>
+                                    </div>
+                                    <!-- Rest of the form content -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Harga Pokok</label>
+                                            <input class="form-control mb-4 mb-md-0" name="harga_pokok" type="number" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Harga Jual</label>
+                                            <input class="form-control" name="harga_jual" type="number" />
+                                        </div>
+                                    </div>
+                                    <label for="">Harga Khusus</label>
+                            <table class="table table-bordered" id="tabelhargakhusus">
+                                <thead>
+                                    <tr>
+                                        <th>Keterangan</th>
+                                        <th>Jumlah Minimal</th>
+                                        <th>Harga</th>
+                                        <th>Diskon</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="nama[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="jumlah_minimal[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="harga[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="diskon[]">
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-sm float-right btn-info" id="add_tr2" type="button"><i class="fa fa-plus"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    
+                                <div class="mt-3">
+                            <!-- Rest of the form content -->
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                            <button data-bs-dismiss="modal" type="button" value="Cancel" class="btn btn-secondary">Cancel</button>
+                                        </div>
+                                
+                                </div>
+                            </div>
+                            <script>
+                                $('#add_tr2').on('click', function (e) {
+                                    var newRowContent =
+                                        `<tr id="tr2_` + ($("#tabelhargakhusus > tbody > tr").length + 1) + `">` +
+                                        `<td>` +
+                                        `<input type="text" class="form-control" name="nama[]">` +
+                                        `</td>` +
+                                        `<td>` +
+                                        `<input type="text" class="form-control" name="jumlah_minimal[]">` +
+                                        `</td>` +
+                                        `<td>` +
+                                        `<input type="text" class="form-control" name="harga[]">` +
+                                        `</td>` +
+                                        `<td>` +
+                                        `<input type="text" class="form-control" name="diskon[]">` +
+                                        `</td>` +
+                                        `<td class="text-center">` +
+                                        `<button class="btn btn-sm btn-danger" onclick="deletetr2(` + ($("#tabelhargakhusus > tbody > tr").length + 1) + `)" type="button"><i class="fa fa-minus"></i></button>` +
+                                        `</td>` +
+                                        `</tr>`;
+                                    $("#tabelhargakhusus tbody").append(newRowContent);
+                                });
+                            
+                                function deletetr2(id) {
+                                    document.getElementById("tr2_" + id).remove();
+                                }
+                            </script>
+                        </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
                     
                     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
                     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
