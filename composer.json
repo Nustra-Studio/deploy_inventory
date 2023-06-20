@@ -2,6 +2,15 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
+    "repositories": [
+        {
+            "packagist": false
+        },
+        {
+            "type": "composer",
+            "url": "https://repo.packagist.org"
+        }
+    ],
     "keywords": [
         "framework",
         "laravel"
@@ -13,6 +22,7 @@
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "mike42/escpos-php": "^2.2",
         "realrashid/sweet-alert": "^7.0"
     },
     "require-dev": {

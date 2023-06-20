@@ -116,6 +116,7 @@ class ComposerStaticInit8f65874262452ea16abd80bbe67e1ab7
         array (
             'Monolog\\' => 8,
             'Mockery\\' => 8,
+            'Mike42\\' => 7,
         ),
         'L' => 
         array (
@@ -388,6 +389,10 @@ class ComposerStaticInit8f65874262452ea16abd80bbe67e1ab7
         'Mockery\\' => 
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
+        ),
+        'Mike42\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
@@ -1265,7 +1270,6 @@ class ComposerStaticInit8f65874262452ea16abd80bbe67e1ab7
         'Faker\\Provider\\nl_NL\\PhoneNumber' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/nl_NL/PhoneNumber.php',
         'Faker\\Provider\\nl_NL\\Text' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/nl_NL/Text.php',
         'Faker\\Provider\\pl_PL\\Address' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/pl_PL/Address.php',
-        'Faker\\Provider\\pl_PL\\Color' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/pl_PL/Color.php',
         'Faker\\Provider\\pl_PL\\Company' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/pl_PL/Company.php',
         'Faker\\Provider\\pl_PL\\Internet' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/pl_PL/Internet.php',
         'Faker\\Provider\\pl_PL\\LicensePlate' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/pl_PL/LicensePlate.php',
@@ -3104,6 +3108,31 @@ class ComposerStaticInit8f65874262452ea16abd80bbe67e1ab7
         'League\\MimeTypeDetection\\GeneratedExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\MimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/MimeTypeDetector.php',
         'League\\MimeTypeDetection\\OverridingExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/OverridingExtensionToMimeTypeMap.php',
+        'Mike42\\Escpos\\CapabilityProfile' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/CapabilityProfile.php',
+        'Mike42\\Escpos\\CapabilityProfiles\\DefaultCapabilityProfile' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/CapabilityProfiles/DefaultCapabilityProfile.php',
+        'Mike42\\Escpos\\CapabilityProfiles\\EposTepCapabilityProfile' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/CapabilityProfiles/EposTepCapabilityProfile.php',
+        'Mike42\\Escpos\\CapabilityProfiles\\P822DCapabilityProfile' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/CapabilityProfiles/P822DCapabilityProfile.php',
+        'Mike42\\Escpos\\CapabilityProfiles\\SimpleCapabilityProfile' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/CapabilityProfiles/SimpleCapabilityProfile.php',
+        'Mike42\\Escpos\\CapabilityProfiles\\StarCapabilityProfile' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/CapabilityProfiles/StarCapabilityProfile.php',
+        'Mike42\\Escpos\\CodePage' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/CodePage.php',
+        'Mike42\\Escpos\\Devices\\AuresCustomerDisplay' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/Devices/AuresCustomerDisplay.php',
+        'Mike42\\Escpos\\EscposImage' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/EscposImage.php',
+        'Mike42\\Escpos\\GdEscposImage' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/GdEscposImage.php',
+        'Mike42\\Escpos\\ImagickEscposImage' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/ImagickEscposImage.php',
+        'Mike42\\Escpos\\NativeEscposImage' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/NativeEscposImage.php',
+        'Mike42\\Escpos\\PrintBuffers\\EscposPrintBuffer' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintBuffers/EscposPrintBuffer.php',
+        'Mike42\\Escpos\\PrintBuffers\\ImagePrintBuffer' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintBuffers/ImagePrintBuffer.php',
+        'Mike42\\Escpos\\PrintBuffers\\PrintBuffer' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintBuffers/PrintBuffer.php',
+        'Mike42\\Escpos\\PrintConnectors\\ApiPrintConnector' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintConnectors/ApiPrintConnector.php',
+        'Mike42\\Escpos\\PrintConnectors\\CupsPrintConnector' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintConnectors/CupsPrintConnector.php',
+        'Mike42\\Escpos\\PrintConnectors\\DummyPrintConnector' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintConnectors/DummyPrintConnector.php',
+        'Mike42\\Escpos\\PrintConnectors\\FilePrintConnector' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintConnectors/FilePrintConnector.php',
+        'Mike42\\Escpos\\PrintConnectors\\NetworkPrintConnector' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintConnectors/NetworkPrintConnector.php',
+        'Mike42\\Escpos\\PrintConnectors\\PrintConnector' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintConnectors/PrintConnector.php',
+        'Mike42\\Escpos\\PrintConnectors\\RawbtPrintConnector' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintConnectors/RawbtPrintConnector.php',
+        'Mike42\\Escpos\\PrintConnectors\\UriPrintConnector' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintConnectors/UriPrintConnector.php',
+        'Mike42\\Escpos\\PrintConnectors\\WindowsPrintConnector' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/PrintConnectors/WindowsPrintConnector.php',
+        'Mike42\\Escpos\\Printer' => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42/Escpos/Printer.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
@@ -3680,8 +3709,8 @@ class ComposerStaticInit8f65874262452ea16abd80bbe67e1ab7
         'PHPUnit\\TextUI\\XmlConfiguration\\Migrator' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrator.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\MoveAttributesFromFilterWhitelistToCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrations/MoveAttributesFromFilterWhitelistToCoverage.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\MoveAttributesFromRootToCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrations/MoveAttributesFromRootToCoverage.php',
+        'PHPUnit\\TextUI\\XmlConfiguration\\MoveWhitelistDirectoriesToCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrations/MoveWhitelistDirectoriesToCoverage.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\MoveWhitelistExcludesToCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrations/MoveWhitelistExcludesToCoverage.php',
-        'PHPUnit\\TextUI\\XmlConfiguration\\MoveWhitelistIncludesToCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrations/MoveWhitelistIncludesToCoverage.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\PHPUnit' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/PHPUnit/PHPUnit.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\Php' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/PHP/Php.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\PhpHandler' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/PHP/PhpHandler.php',
