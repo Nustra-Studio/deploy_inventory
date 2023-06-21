@@ -19,5 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', 'Api\ApiCabang@login')->name('api.login');
 Route::group(['middleware' => 'ApiCabang'], function () {
     // get route barang
-    Route::get('/barang', 'Api\ApiBarang@index')->name('api.barang');
+    Route::get('/barang', 'Api\ApiCabang@barang')->name('api.barang');
 });

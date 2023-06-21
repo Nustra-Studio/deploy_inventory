@@ -51,6 +51,15 @@ class ApiCabang extends Controller
             'token' => $token,
         ]);
     }
+        public function barang(Request $request)
+        {
+            $request->validate([
+                'token' => 'required',
+            ]);
+            $uuid = $request->input('uuid');
+            $barang = user_cabang::where('uuid', $uuid)->first();
+            return response()->json($barang);
+        }
     /**
      * Store a newly created resource in storage.
      *
