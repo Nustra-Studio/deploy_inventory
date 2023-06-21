@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('uuid');
             $table->string('role');
             $table->string('cabang_id');
-            $table->string('api_key');
+            $table->string('api_key')->nullable();
             $table->timestamps();
         });
     }
