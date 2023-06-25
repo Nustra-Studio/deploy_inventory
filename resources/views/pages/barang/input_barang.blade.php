@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Supplier:</label>
-                        <select class="form-control" id="supplier-select">
+                        <select class="form-control" id="supplier-input">
                             @foreach ($supplier as $item)
                             <option value="{{$item->uuid}}">{{$item->nama}}</option>
                             @endforeach
@@ -32,24 +32,23 @@
                     <div class="col-md-6">
                         <label class="form-label">Harga Pokok</label>
                         
-                        <input class="form-control mb-4 mb-md-0"/>
+                        <input id="harga-pokok-input" class="form-control mb-4 mb-md-0"/>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Harga Jual</label>
-                        <input class="form-control"  />
+                        <input id="harga-jual-input" class="form-control mb-4 mb-md-0"  />
                     </div>
                 </div>
                 <!-- Rest of the form content -->
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Jumlah</label>
-                        <input class="form-control mb-4 mb-md-0"/>
+                        <input id="jumlah-input" class="form-control mb-4 mb-md-0"/>
                     </div>
                 </div>
                 <!-- Rest of the form content -->
                 <input type="button" class="btn btn-warning me-2" value="Tambah Barang"data-bs-toggle="modal" data-bs-target="#exampleModalLongScollable" />
                 <input type="button" class="btn btn-success me-2" value="Tambah" onclick="addRow()" />
-                <input type="submit" class="btn btn-primary me-2" value="Kirim" />
                 <button onclick="window.history.go(-1); return false;" type="submit" value="Cancel" class="btn btn-secondary">Cancel</button>
             </form>
 
@@ -68,30 +67,39 @@
                                     <th>Harga Pokok Barang</th>
                                     <th>Harga jual Barang</th>
                                     <th>Supplier Barang</th>
-                                    <th>Barcode</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Table rows will be dynamically added here -->
+
                             </tbody>
                         </table>
                     </div>
+                    <form class="forms-sample">
+                        <!-- Rest of the form content -->
+                        <input type="hidden" id="data-table-values" name="data_table_values">
+                        <input type="submit" class="btn btn-primary me-2" value="Kirim">
+                        <!-- Rest of the code -->
+                    </form>
+                </div>
                     <!-- Modal -->
-            <div class="modal fade bd-example-modal-lg" id="exampleModalLongScollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalScrollableTitle">Create Data Barang</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @php
-                            use App\Models\category_barang;
-                            $supllier = suplier::all();
-                            $category = category_barang::all();
-                        @endphp
-                                <form 
-                                action="{{ route('barang.store') }}" 
+            
+                    <div class="modal fade bd-example-modal-lg" id="exampleModalLongScollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalScrollableTitle">Create Data Barang</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @php
+                                use App\Models\category_barang;
+                                $supllier = suplier::all();
+                                $category = category_barang::all();
+                            @endphp
+                                    <form 
+                                    action="{{ route('barang.store') }}" 
                                 method="POST" 
                                 enctype="multipart/form-data"    
                                 class="forms-sample">
@@ -214,7 +222,6 @@
                         </div>
                         </div>
                         </form>
-                    </div>
                 </div>
                 </div>
             </div>
@@ -226,32 +233,40 @@
                         const productTable = $('#product-table').DataTable();
                     
                         function addRow() {
-                        // Retrieve values from the form fields
-                        const quantity = document.getElementById('quantity-input').value;
-                        const price = document.getElementById('price-input').value;
-                        const productName = document.getElementById('product-name-input').value;
-                        const supplier = document.getElementById('supplier-select').value;
-                        const barcode = document.getElementById('barcode-input').value;
-
-                        // Create the delete button with red color and label
-                        const deleteButton = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>`;
-
-                        // Add the row to the DataTable
-                        const newRow = productTable.row.add([quantity, price, productName, supplier, barcode, deleteButton]).draw();
-
-                        // Store the row node in a custom attribute for easy deletion
-                        $(newRow.node()).data('node', newRow);
-
-                        // Clear the form fields
-                        document.getElementById('quantity-input').value = '';
-                        document.getElementById('price-input').value = '';
-                        document.getElementById('product-name-input').value = '';
-                        document.getElementById('supplier-select').value = '';
-                        document.getElementById('barcode-input').value = '';
-                    }
-
+                            // Retrieve values from the form fields
+                            const jumlah = document.getElementById('jumlah-input').value;
+                            const Harga_pokok = document.getElementById('harga-pokok-input').value;
+                            const Name = document.getElementById('product-name-input').value;
+                            const supplier = document.getElementById('supplier-input').value;
+                            const harga_jual = document.getElementById('harga-jual-input').value;
+                    
+                            // Create the delete button with red color and label
+                            const deleteButton = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>`;
+                    
+                            // Add the row to the DataTable
+                            const newRow = productTable.row.add([Name, jumlah, Harga_pokok, Harga_pokok, supplier, deleteButton]).draw();
+                    
+                            // Store the row node in a custom attribute for easy deletion
+                            $(newRow.node()).data('node', newRow);
+                    
+                            // Clear the form fields
+                            document.getElementById('jumlah-input').value = '';
+                            document.getElementById('harga-pokok-input').value = '';
+                            document.getElementById('product-name-input').value = '';
+                            document.getElementById('supplier-input').value = '';
+                            document.getElementById('harga-jual-input').value = '';
+                        }
+                    
+                        function deleteRow(button) {
+                            // Get the row node associated with the delete button
+                            const rowNode = $(button).closest('tr');
+                    
+                            // Remove the row from the DataTable
+                            productTable.row(rowNode).remove().draw();
+                        }
                     </script>
-            </div>
+                    
+                </div>
         </div>
         </div>
     </div>
