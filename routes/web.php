@@ -37,7 +37,7 @@ Route::group(['prefix' => 'error'], function(){
     Route::get('/supllier/barang/{uuid}', 'SupplierController@barang')->name('supplier.barang');
     Route::get('/input-barang', 'BarangController@input')->name('barang.input');
     Route::post('/input-barang', 'BarangController@inputcreate')->name('barang.input.create');
-
+    Route::get('/get-products-by-supplier', 'SupplierController@getProductsBySupplier')->name('supplier.getProductsBySupplier');
     // route resource category,cabang,supplier,distribusi,transaction
 
     Route::resource('/category', CategoryController::class);
@@ -47,6 +47,7 @@ Route::group(['prefix' => 'error'], function(){
     Route::resource('/cabang', CabangController::class);
     Route::resource('/supllier', SupplierController::class);
     Route::resource('/distribusi', DistribusiController::class);
+    Route::get('/distribusi/{uuid}/barang', 'DistribusiController@barang')->name('distribusi.barang');
     Route::resource('/transaction', TransactionController::class);
     // route get pembelian pengeluaran dari root transaction
     Route::get('/pembelian', [TransactionController::class, 'pembelian'])->name('transaction.pembelian');

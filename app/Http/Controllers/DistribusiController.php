@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\barang;
 
 class DistribusiController extends Controller
 {
@@ -37,6 +38,11 @@ class DistribusiController extends Controller
         //
     }
 
+    public function barang($uuid){
+        $barang = barang::all();
+        $uuid_cabang = $uuid;
+        return view('pages.distribusi.barang', compact('barang','uuid_cabang'));
+    }
     /**
      * Display the specified resource.
      *

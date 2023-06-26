@@ -16,13 +16,14 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label class="form-label">Product Name:</label>
-                        <input class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Search for a product..." />
+                        <input class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Search for a product..."  />
+
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Supplier:</label>
                         <select class="form-control" id="supplier-input">
                             @foreach ($supplier as $item)
-                            <option value="{{$item->uuid}}">{{$item->nama}}</option>
+                            <option value="{{$item->nama}}">{{$item->nama}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -76,7 +77,12 @@
                             </tbody>
                         </table>
                     </div>
-                    <form class="forms-sample">
+                    <form class="forms-sample"
+                    action="{{ route('barang.input.create') }}" 
+                    method="POST" 
+                    enctype="multipart/form-data" 
+                    >
+                    @csrf
                         <!-- Rest of the form content -->
                         <input type="hidden" id="data-table-values" name="data_table_values">
                         <input type="submit" class="btn btn-primary me-2" value="Kirim">
@@ -231,6 +237,7 @@
                     
                     <script>
                         const productTable = $('#product-table').DataTable();
+                        const existingValues = [];
                     
                         function addRow() {
                             // Retrieve values from the form fields
@@ -242,7 +249,15 @@
                     
                             // Create the delete button with red color and label
                             const deleteButton = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>`;
-                    
+                            const rowValues = {
+                                'Name': Name,
+                                'jumlah': jumlah,
+                                'Harga_pokok': Harga_pokok,
+                                'harga_jual': harga_jual,
+                                'supplier': supplier,
+                                            };
+                            existingValues.push(rowValues);
+                            $('#data-table-values').val(JSON.stringify(existingValues));
                             // Add the row to the DataTable
                             const newRow = productTable.row.add([Name, jumlah, Harga_pokok, Harga_pokok, supplier, deleteButton]).draw();
                     
@@ -265,6 +280,39 @@
                             productTable.row(rowNode).remove().draw();
                         }
                     </script>
+                    <script>
+                     function getProductsBySupplier() {
+        const supplier = document.getElementById('supplier-select').value;
+        const productNameInput = document.getElementById('product-name-input');
+        console.log(supplier);
+        
+        // Clear the product name input field
+        productNameInput.value = '';
+        
+        // Make an AJAX request to fetch the products based on the selected supplier
+        $.ajax({
+            url: '/get-products-by-supplier', // Replace with the actual URL to fetch the products
+            method: 'GET',
+            data: { supplier: supplier },
+            success: function(response) {
+                // Update the product name input field with the fetched products
+                const products = response.products;
+                let options = '';
+                console.log(products);
+                
+                products.forEach(product => {
+                    options += `<option value="${product.name}">${product.name}</option>`;
+                });
+                
+                productNameInput.innerHTML = options;
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
+                    
                     
                 </div>
         </div>

@@ -42,7 +42,7 @@
                     <td>{{$item->telepon}}</td>
                     <td>
                       <div class="text-center">
-                        <a href="" class="btn btn-primary btn-icon">
+                        <a href="{{url("/distribusi/$item->uuid/barang")}}" class="btn btn-primary btn-icon">
                           <i data-feather="repeat"></i>
                         </a>
                       </div>

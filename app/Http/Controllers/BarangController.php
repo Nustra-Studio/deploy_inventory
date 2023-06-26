@@ -8,7 +8,12 @@ use Illuminate\Support\Str;
 use App\Models\barang;
 use App\Models\harga_khusus;
 use App\Models\category_barang;
-
+use App\Models\suplier;
+use Mike42\Escpos\CapabilityProfile;
+use Mike42\Escpos\EscposImage;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\Printer;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class BarangController extends Controller
 {
@@ -22,6 +27,15 @@ class BarangController extends Controller
         $data = barang::where('uuid', '!=', 'hidden')->get();
         return view ('pages.barang.index',compact('data'));
     }
+    public function getProductsBySupplier(Request $request)
+    {
+        $suppliers = $request->input('supplier');
+        $supplier = suplier::where('name', $suppliers)->value('uuid');
+        // Fetch the products based on the selected supplier
+        $products = barang::where('id_supplier', $supplier)->get();
+    
+        return response()->json(['products' => $products]);
+    }
     public function resource( Request $request)
     {
         $data = barang::where('uuid', '=' ,"$request->uuid")->get();
@@ -32,6 +46,56 @@ class BarangController extends Controller
     {
         return view ('pages.barang.input_barang');
     }
+    public function inputcreate(Request $request){
+        $data = $request->input('data_table_values');
+        $data = json_decode($data, true);
+        $uuid = Str::uuid()->toString();
+        foreach ($data as $row) {
+            $supplier = suplier::where('nama', $row['supplier'])->value('uuid');
+            $stock = barang::where('name', $row['Name'])->value('stok');
+            $stock = $stock + $row['jumlah'];
+            DB::table('barangs')->updateOrInsert(
+                ['name' => $row['Name']],
+                [
+                    'stok' => $stock,
+                    'Harga_pokok' => $row['Harga_pokok'],
+                    'harga_jual' => $row['harga_jual'],
+                    'id_supplier' => $supplier,
+                ]
+            );
+        }
+
+        $this->printThermal($data); // Panggil fungsi cetak setelah selesai memasukkan data
+
+        return response()->json(['message' => 'Data inserted successfully']);
+    }
+
+    private function printThermal($data)
+    {
+        $connector = new FilePrintConnector("/dev/usb/lp0"); // Ganti dengan jalur koneksi printer thermal Anda
+        $profile = CapabilityProfile::load("thermal", "33mm");
+        $printer = new Printer($connector, $profile);
+        $qr = QrCode::size(80)->generate('Contoh QR Code');
+        try {
+            foreach ($data as $row) {
+                $printer->setTextSize(1, 1); // Ubah ukuran teks
+
+                $printer->text($row['Name'] . "\n");
+                $qrCode = QrCode::size(80)->generate($row['Name']);
+                $qrCodeImage = EscposImage::load($qrCode);
+                $printer->bitImage($qrCodeImage);
+                $printer->text("\n");
+                $printer->text("Kode: " . $row['Name'] . "\n");
+
+                $printer->text("--------------------------------\n");
+            }
+
+            $printer->cut();
+        } finally {
+            $printer->close();
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
