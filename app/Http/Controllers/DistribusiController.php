@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\barang;
+use App\Models\cabang;
+use Illuminate\Support\Facades\DB;
 
 class DistribusiController extends Controller
 {
@@ -36,6 +38,42 @@ class DistribusiController extends Controller
     public function store(Request $request)
     {
         //
+    }
+    public function barangstore(Request $request)
+    {
+        $total = count($request->input('jumlah'));
+        $database = cabang::where('uuid', '=' ,"$request->id_cabang")->value('database');
+        $nama = cabang::where('uuid', '=' ,"$request->id_cabang")->value('nama');
+        for ($i=0; $i < $total; $i++) { 
+            $kode = $request->input('kode')[$i];
+            $stock = $request->input('jumlah')[$i];
+            $data = barang::where('kode_barang', '=' ,"$kode")->first();
+            $check = DB::table("$database")->where('kode_barang', '=' ,"$kode")->first();
+            if ($check) {
+                $stock = $check->stok + $stock;
+                DB::table("$database")->where('kode_barang', '=' ,"$kode")->update([
+                    'stok' => $stock,
+                    'Harga_pokok' => $data->Harga_pokok,
+                    'harga_jual' => $data->harga_jual,
+                ]);
+            }else{
+                DB::table("$database")->insert([
+                    'id' => $data->id,
+                    'name' => $data->name,
+                    'merek_barang' => $data->merek_barang,
+                    'uuid' => $data->uuid,
+                    'id_supplier' => $data->id_supplier,
+                    'category_id' => $data->category_id,
+                    'harga_pokok' => $data->harga_pokok,
+                    'harga_jual' => $data->harga_jual,
+                    'stok' => $stock,
+                    'kode_barang' => $data->kode_barang,
+                    'keterangan' => $data->keterangan,
+                ]);
+            }
+
+        }
+        return redirect()->route('distribusi.index')->with('success', "Barang Berhasil Di Distribusikan ke $nama  ");
     }
 
     public function barang($uuid){

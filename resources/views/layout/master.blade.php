@@ -56,6 +56,16 @@ License: For each use you must have a valid license purchased only from above li
       @include('layout.header')
       <div class="page-content">
         @yield('content')
+
+        @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                text: '{{ session('success') }}'
+            });
+        </script>
+    @endif
       </div>
       <script>
         // Tambahkan event listener untuk tombol atau tautan

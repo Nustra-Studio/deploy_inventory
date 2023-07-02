@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('category_id');
             $table->string('keterangan');
+            $table->string('database');
             $table->timestamps();
         });
     }

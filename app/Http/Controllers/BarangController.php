@@ -64,37 +64,9 @@ class BarangController extends Controller
                 ]
             );
         }
-
-        $this->printThermal($data); // Panggil fungsi cetak setelah selesai memasukkan data
-
-        return response()->json(['message' => 'Data inserted successfully']);
+        return redirect()->route('barang.index')->with('success', 'Data Berhasil Di Tambahkan');
     }
 
-    private function printThermal($data)
-    {
-        $connector = new FilePrintConnector("/dev/usb/lp0"); // Ganti dengan jalur koneksi printer thermal Anda
-        $profile = CapabilityProfile::load("thermal", "33mm");
-        $printer = new Printer($connector, $profile);
-        $qr = QrCode::size(80)->generate('Contoh QR Code');
-        try {
-            foreach ($data as $row) {
-                $printer->setTextSize(1, 1); // Ubah ukuran teks
-
-                $printer->text($row['Name'] . "\n");
-                $qrCode = QrCode::size(80)->generate($row['Name']);
-                $qrCodeImage = EscposImage::load($qrCode);
-                $printer->bitImage($qrCodeImage);
-                $printer->text("\n");
-                $printer->text("Kode: " . $row['Name'] . "\n");
-
-                $printer->text("--------------------------------\n");
-            }
-
-            $printer->cut();
-        } finally {
-            $printer->close();
-        }
-    }
 
     /**
      * Show the form for creating a new resource.

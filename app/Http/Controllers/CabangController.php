@@ -41,6 +41,28 @@ class CabangController extends Controller
         // create database for request data
         $data = $request->all();
         // create new data
+        $namas = $data['nama'];
+        $nama = str_replace(' ', '_', $namas);
+        $query = "
+        CREATE TABLE cabang_$nama (
+            `id` bigint(20) UNSIGNED NOT NULL,
+            `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+            `category_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+            `id_supplier` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+            `kode_barang` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `harga` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `harga_jual` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `harga_pokok` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `harga_grosir` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `stok` int(11) NOT NULL,
+            `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+            `merek_barang` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `type_barang_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `created_at` timestamp NULL DEFAULT NULL,
+            `updated_at` timestamp NULL DEFAULT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+        DB::statement($query);
         $newdata = [
             'nama' => $data['nama'],
             'alamat' => $data['alamat'],
@@ -48,7 +70,8 @@ class CabangController extends Controller
             'kepala_cabang' => $data['kepala_cabang'],
             'telepon' => $data['telepon'],
             'category_id' => $data['category_id'],
-            'uuid'=> $data['uuid']
+            'uuid'=> $data['uuid'],
+            'database' => "cabang_$nama",
         ];
         DB::table('cabangs')->insert($newdata);
         return redirect()->route('cabang.index')->with('success', 'Data cabang berhasil ditambahkan');

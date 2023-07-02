@@ -33,8 +33,9 @@
               </tr>
             </thead>
             <tbody id="tb-category">
+              @foreach ($data as $item)
               <tr>
-                  @foreach ($data as $item)
+
                     <td>{{$loop->index+1}}</td>
                     <td>{{$item->nama}}</td>
                     <td>{{$item->kepala_cabang}}</td>
@@ -47,9 +48,9 @@
                         </a>
                       </div>
                     </td>
-                  @endforeach
+
                 </tr>
-              
+                @endforeach              
             </tbody>
           </table>
         </div>

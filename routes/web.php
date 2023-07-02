@@ -48,6 +48,7 @@ Route::group(['prefix' => 'error'], function(){
     Route::resource('/supllier', SupplierController::class);
     Route::resource('/distribusi', DistribusiController::class);
     Route::get('/distribusi/{uuid}/barang', 'DistribusiController@barang')->name('distribusi.barang');
+    Route::post('/distribusi/barang', 'DistribusiController@barangstore')->name('distribusi.barang.store');
     Route::resource('/transaction', TransactionController::class);
     // route get pembelian pengeluaran dari root transaction
     Route::get('/pembelian', [TransactionController::class, 'pembelian'])->name('transaction.pembelian');
