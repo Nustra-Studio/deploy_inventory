@@ -1,6 +1,9 @@
 @extends('layout.master')
 
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
 @php
     use App\Models\category_cabang;
     use App\Models\suplier;
@@ -16,8 +19,8 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label class="form-label">Product Name:</label>
-                        <input class="form-control mb-4 mb-md-0" id="product-name-input" type="text" placeholder="Search for a product..."  />
-
+                        <select class="js-example-basic-single form-select" name="" id="product-name-input">
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Supplier:</label>
@@ -281,36 +284,35 @@
                         }
                     </script>
                     <script>
-                     function getProductsBySupplier() {
-        const supplier = document.getElementById('supplier-select').value;
-        const productNameInput = document.getElementById('product-name-input');
-        console.log(supplier);
-        
-        // Clear the product name input field
-        productNameInput.value = '';
-        
-        // Make an AJAX request to fetch the products based on the selected supplier
-        $.ajax({
-            url: '/get-products-by-supplier', // Replace with the actual URL to fetch the products
-            method: 'GET',
-            data: { supplier: supplier },
-            success: function(response) {
-                // Update the product name input field with the fetched products
-                const products = response.products;
-                let options = '';
-                console.log(products);
-                
-                products.forEach(product => {
-                    options += `<option value="${product.name}">${product.name}</option>`;
+
+            function update() {
+				const supplier = document.getElementById('supplier-input').value;
+                var Url = '/product/'+ supplier +'/show';
+                $('#product-name-input').select2({
+                    placeholder: 'Select Product',
+                    ajax: {
+                        url: Url,
+                        dataType: 'json',
+                        delay: 250,
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.name,
+                                        id: item.name
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
+                    },// Gunakan tema bootstrap
+                    minimumResultsForSearch: 0,
+                    containerCssClass: 'custom-select2-container'
                 });
-                
-                productNameInput.innerHTML = options;
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-    }
+                $('#harga-jual-input').val(12000);
+			}
+
+			update();
 </script>
                     
                     
@@ -320,3 +322,28 @@
     </div>
     
 @endsection
+{{-- @push('plugin-scripts')
+    <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/typeahead-js/typeahead.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/dropzone/dropzone.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/pickr/pickr.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/flatpickr/flatpickr.min.js') }}"></script>
+@endpush
+@push('custom-scripts')
+    <script src="{{ asset('assets/js/form-validation.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-maxlength.js') }}"></script>
+    <script src="{{ asset('assets/js/inputmask.js') }}"></script>
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script src="{{ asset('assets/js/typeahead.js') }}"></script>
+    <script src="{{ asset('assets/js/tags-input.js') }}"></script>
+    <script src="{{ asset('assets/js/dropzone.js') }}"></script>
+    <script src="{{ asset('assets/js/dropify.js') }}"></script>
+    <script src="{{ asset('assets/js/pickr.js') }}"></script>
+    <script src="{{ asset('assets/js/flatpickr.js') }}"></script>
+@endpush --}}

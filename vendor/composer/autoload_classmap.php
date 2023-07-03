@@ -44,6 +44,7 @@ return array(
     'App\\Models\\stok' => $baseDir . '/app/Models/stok.php',
     'App\\Models\\suplier' => $baseDir . '/app/Models/suplier.php',
     'App\\Models\\tipe_barang' => $baseDir . '/app/Models/tipe_barang.php',
+    'App\\Models\\transaction_barang' => $baseDir . '/app/Models/transaction_barang.php',
     'App\\Models\\transfer_barang' => $baseDir . '/app/Models/transfer_barang.php',
     'App\\Models\\user_cabang' => $baseDir . '/app/Models/user_cabang.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

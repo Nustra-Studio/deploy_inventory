@@ -8,34 +8,33 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('history_transactions', function (Blueprint $table) {
+        Schema::create('transaction_barangs', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
-            // string name satuan  kode_brang kode_transcation_suppliers  
             $table->string('name')->nullable();
             $table->string('jumlah')->nullable();
             $table->string('kode_barang')->nullable();
-            // $table->string('kode_transaksi_suppliers')->nullable();
-            // interger harga_pokok harga_jual supllayer
+            $table->string('status')->nullable();
+            $table->string('id_member')->nullable();
+            $table->string('keterangan')->nullable();
             $table->integer('harga_pokok')->nullable();
             $table->integer('harga_jual')->nullable();
-            $table->integer('id_supllayer')->nullable();
-            $table->string('keterangan')->nullable();
-            // time date masuk barang
-            $table->datetime('masuk_barang')->nullable();
-            $table->datetime('keluar_barang')->nullable();
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('history_transactions');
+        Schema::dropIfExists('transaction_barangs');
     }
 };

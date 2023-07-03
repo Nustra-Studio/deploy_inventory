@@ -568,6 +568,7 @@ class ComposerStaticInit8f65874262452ea16abd80bbe67e1ab7
         'App\\Models\\stok' => __DIR__ . '/../..' . '/app/Models/stok.php',
         'App\\Models\\suplier' => __DIR__ . '/../..' . '/app/Models/suplier.php',
         'App\\Models\\tipe_barang' => __DIR__ . '/../..' . '/app/Models/tipe_barang.php',
+        'App\\Models\\transaction_barang' => __DIR__ . '/../..' . '/app/Models/transaction_barang.php',
         'App\\Models\\transfer_barang' => __DIR__ . '/../..' . '/app/Models/transfer_barang.php',
         'App\\Models\\user_cabang' => __DIR__ . '/../..' . '/app/Models/user_cabang.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

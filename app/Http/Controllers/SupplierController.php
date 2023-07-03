@@ -67,7 +67,11 @@ class SupplierController extends Controller
     {
         //
     }
-
+    public function caribarang($id){
+        $ids = suplier::where('nama', $id)->value('uuid');
+        $data = barang::where('id_supplier', $ids)->get();
+        return response()->json($data);
+    }
     /**
      * Show the form for editing the specified resource.
      *

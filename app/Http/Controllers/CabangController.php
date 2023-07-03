@@ -43,26 +43,43 @@ class CabangController extends Controller
         // create new data
         $namas = $data['nama'];
         $nama = str_replace(' ', '_', $namas);
+        $database = "cabang_$nama";
         $query = "
         CREATE TABLE cabang_$nama (
             `id` bigint(20) UNSIGNED NOT NULL,
             `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
             `category_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
             `id_supplier` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-            `kode_barang` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-            `harga` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-            `harga_jual` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-            `harga_pokok` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-            `harga_grosir` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-            `stok` int(11) NOT NULL,
-            `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-            `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-            `merek_barang` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-            `type_barang_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `kode_barang` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `harga` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `harga_jual` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `harga_pokok` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `harga_grosir` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `stok` int(16) NOT NULL,
+            `keterangan` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `name` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
+            `merek_barang` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `type_barang_id` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
             `created_at` timestamp NULL DEFAULT NULL,
             `updated_at` timestamp NULL DEFAULT NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
         DB::statement($query);
+        $query2 = " 
+        CREATE TABLE `transaction_$database` (
+            `id` bigint(20) UNSIGNED NOT NULL,
+            `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+            `name` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `jumlah` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `kode_barang` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `status` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `id_member` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `keterangan` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `harga_pokok` int(11) DEFAULT NULL,
+            `harga_jual` int(11) DEFAULT NULL,
+            `created_at` timestamp NULL DEFAULT NULL,
+            `updated_at` timestamp NULL DEFAULT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+        DB::statement($query2);
         $newdata = [
             'nama' => $data['nama'],
             'alamat' => $data['alamat'],

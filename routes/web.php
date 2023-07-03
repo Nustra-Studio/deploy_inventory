@@ -37,8 +37,9 @@ Route::group(['prefix' => 'error'], function(){
     Route::get('/supllier/barang/{uuid}', 'SupplierController@barang')->name('supplier.barang');
     Route::get('/input-barang', 'BarangController@input')->name('barang.input');
     Route::post('/input-barang', 'BarangController@inputcreate')->name('barang.input.create');
-    Route::get('/get-products-by-supplier', 'SupplierController@getProductsBySupplier')->name('supplier.getProductsBySupplier');
+    Route::get('/product/{id}/show', 'SupplierController@caribarang')->name('supplier.getProductsBySupplier');
     // route resource category,cabang,supplier,distribusi,transaction
+    Route::get('/harga/{id}/{harga}/barang', 'BarangController@harga')->name('barang.harga');
 
     Route::resource('/category', CategoryController::class);
     Route::resource('/categorycabang', CategoryCabangController::class);
