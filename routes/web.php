@@ -34,6 +34,7 @@ Route::group(['prefix' => 'error'], function(){
         Route::get('/barang', 'BarangController@resource')->name('barang.resource');
     });
     Route::resource('/barang', BarangController::class);
+    Route::post('/barang/hapus', 'BarangController@hapus')->name('barang.hapus');
     Route::get('/supllier/barang/{uuid}', 'SupplierController@barang')->name('supplier.barang');
     Route::get('/input-barang', 'BarangController@input')->name('barang.input');
     Route::post('/input-barang', 'BarangController@inputcreate')->name('barang.input.create');

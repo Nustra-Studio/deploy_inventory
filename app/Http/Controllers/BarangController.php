@@ -64,6 +64,7 @@ class BarangController extends Controller
                 ]
             );
         }
+        
         return redirect()->route('barang.index')->with('success', 'Data Berhasil Di Tambahkan');
     }
 
@@ -178,7 +179,9 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = barang::where('uuid', $id)->first();
+        $harga = harga_khusus::where('id_barang', $data->uuid)->get();
+        return view ('pages.barang.update', compact('data', 'harga'));
     }
 
     /**
@@ -190,7 +193,46 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(request(),
+        [
+            'name' => 'required',
+            'merek_barang' => 'required',
+            'supplier' => 'required',
+            'category_barang' => 'required',
+            'harga_pokok' => 'required',
+            'harga_jual' => 'required',
+            'jumlah' => 'required',
+        ]);
+        $data_master = [
+            'name' => $request->name,
+            'merek_barang' => $request->merek_barang,
+            'id_supplier' => $request->supplier,
+            'category_id' => $request->category_barang,
+            'harga_pokok' => $request->harga_pokok,
+            'harga_jual' => $request->harga_jual,
+            'stok' => $request->jumlah,
+            'keterangan' => $request->keterangan,
+        ];
+        for($j=0; $j < count($request->nama); $j++){
+            $this->validate(request(),
+            [
+                'nama' => 'required',
+                'harga' => 'required',
+                'jumlah_minimal' => 'required',
+                'diskon' => 'required',
+            ]);
+            $data_harga = [
+                'id_barang'=> $id,
+                'harga' => $request->harga[$j],
+                'jumlah_minimal' => $request->jumlah_minimal[$j],
+                'diskon' => $request->diskon[$j],
+                'keterangan' => $request->nama[$j],
+            ];
+            $uuid_barang = $request->uuid_barang[$j];
+            $push = harga_khusus::where('id',$uuid_barang)->update($data_harga);
+        }
+        $push = barang::where('uuid', $id)->update($data_master);
+        return redirect()->route('barang.index')->with('success', 'Data Berhasil Di Update');
     }
 
     /**
@@ -201,6 +243,14 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = barang::where('uuid', $id)->first();
+        $data->delete();
+        return redirect()->route('barang.index')->with('success', 'Data Berhasil Di Hapus');
+    }
+    public function hapus(Request $request){
+        $data = harga_khusus::where('uuid', $request->uuid)->first();
+        $data->delete();
+        // return kembali dan beri success
+        return redirect()->back()->with('success', 'Data Berhasil Di Hapus');
     }
 }
