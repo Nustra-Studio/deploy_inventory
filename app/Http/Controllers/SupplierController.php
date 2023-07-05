@@ -25,7 +25,10 @@ class SupplierController extends Controller
         $nama = suplier::where('uuid', $uuid)->value('nama');
         return view('pages.supplier.barang',compact('data','nama'));
     }
-
+    public function list(){
+        $data = suplier::all();
+        return response()->json($data);
+    }
     /**
      * Show the form for creating a new resource.
      *

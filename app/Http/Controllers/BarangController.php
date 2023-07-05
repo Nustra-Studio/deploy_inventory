@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\barang;
 use App\Models\harga_khusus;
 use App\Models\category_barang;
+use App\Models\history_transaction;
 use App\Models\suplier;
 use Mike42\Escpos\CapabilityProfile;
 use Mike42\Escpos\EscposImage;
@@ -41,7 +42,10 @@ class BarangController extends Controller
         $data = barang::where('uuid', '=' ,"$request->uuid")->get();
         return response()->json($data, 200);
     }
-
+    public function list($uuid){
+        $data = barang::where('uuid', $uuid)->frist();
+        return response()->json($data);
+    }
     public function input()
     {
         return view ('pages.barang.input_barang');
@@ -53,6 +57,7 @@ class BarangController extends Controller
         foreach ($data as $row) {
             $supplier = suplier::where('nama', $row['supplier'])->value('uuid');
             $stock = barang::where('name', $row['Name'])->value('stok');
+            $kode = barang::where('name', $row['Name'])->frist();
             $stock = $stock + $row['jumlah'];
             DB::table('barangs')->updateOrInsert(
                 ['name' => $row['Name']],
@@ -63,6 +68,19 @@ class BarangController extends Controller
                     'id_supplier' => $supplier,
                 ]
             );
+            $uuid= hash('sha256', uniqid(mt_rand(), true));
+            $data_history = [
+            'uuid' => $uuid,
+            'name' => $row['Name'],
+            'jumlah' => $row['jumlah'],
+            'kode_barang' => $kode->kode_barang,
+            'uuid_barang' => $kode->uuid,
+            'harga_pokok' => $kode->harga_pokok,
+            'harga_jual' => $kode->harga_jual,
+            'id_supllayer' => $kode->supplier,
+            'status' => 'masuk',
+        ];
+        $push = history_transaction::create($data_history);
         }
         
         return redirect()->route('barang.index')->with('success', 'Data Berhasil Di Tambahkan');
@@ -111,8 +129,20 @@ class BarangController extends Controller
             'kode_barang' => $kode,
             'keterangan' => $request->keterangan,
         ];
+        $uuid= hash('sha256', uniqid(mt_rand(), true));
+        $data_history = [
+            'uuid' => $uuid,
+            'name' => $request->name,
+            'jumlah' => $request->jumlah,
+            'kode_barang' => $kode,
+            'uuid_barang' => $request->uuid,
+            'harga_pokok' => $request->harga_pokok,
+            'harga_jual' => $request->harga_jual,
+            'id_supllayer' => $request->supplier,
+            'status' => 'masuk',
+        ];
         $push = barang::create($data_master);
-
+        $up = history_transaction::create($data_history);
             for($j=0; $j < count($request->nama); $j++){
                 $uuid= hash('sha256', uniqid(mt_rand(), true));
                 $data_harga = [
@@ -213,23 +243,36 @@ class BarangController extends Controller
             'stok' => $request->jumlah,
             'keterangan' => $request->keterangan,
         ];
-        for($j=0; $j < count($request->nama); $j++){
+        for ($j = 0; $j < count($request->input('nama')); $j++) {
             $this->validate(request(),
             [
-                'nama' => 'required',
-                'harga' => 'required',
-                'jumlah_minimal' => 'required',
-                'diskon' => 'required',
+                'nama.' . $j => 'required',
+                'harga.' . $j => 'required',
+                'jumlah_minimal.' . $j => 'required',
+                'diskon.' . $j => 'required',
             ]);
-            $data_harga = [
-                'id_barang'=> $id,
-                'harga' => $request->harga[$j],
-                'jumlah_minimal' => $request->jumlah_minimal[$j],
-                'diskon' => $request->diskon[$j],
-                'keterangan' => $request->nama[$j],
-            ];
-            $uuid_barang = $request->uuid_barang[$j];
-            $push = harga_khusus::where('id',$uuid_barang)->update($data_harga);
+
+            if ($request->input('status')[$j] == 'update') {
+                $uuid_barang = $request->input('uuid_barang')[$j];
+                $data_harga = [
+                    'harga' => $request->harga[$j],
+                    'jumlah_minimal' => $request->jumlah_minimal[$j],
+                    'diskon' => $request->diskon[$j],
+                    'keterangan' => $request->nama[$j],
+                ];
+                $push = harga_khusus::where('id', $uuid_barang)->update($data_harga);
+            } elseif ($request->input('status')[$j] == 'tambah') {
+                $uuid = hash('sha256', uniqid(mt_rand(), true));
+                $data_harga = [
+                    'id_barang'=> $id,
+                    'harga' => $request->harga[$j],
+                    'jumlah_minimal' => $request->jumlah_minimal[$j],
+                    'diskon' => $request->diskon[$j],
+                    'keterangan' => $request->nama[$j],
+                    'uuid' => $uuid,
+                ];
+                $push = harga_khusus::create($data_harga);
+            }
         }
         $push = barang::where('uuid', $id)->update($data_master);
         return redirect()->route('barang.index')->with('success', 'Data Berhasil Di Update');
@@ -248,9 +291,8 @@ class BarangController extends Controller
         return redirect()->route('barang.index')->with('success', 'Data Berhasil Di Hapus');
     }
     public function hapus(Request $request){
-        $data = harga_khusus::where('uuid', $request->uuid)->first();
+        $data = harga_khusus::where('id', $request->id)->first();
         $data->delete();
-        // return kembali dan beri success
-        return redirect()->back()->with('success', 'Data Berhasil Di Hapus');
+        return redirect()->route('barang.index')->with('success', 'Data Berhasil Di Hapus');
     }
 }

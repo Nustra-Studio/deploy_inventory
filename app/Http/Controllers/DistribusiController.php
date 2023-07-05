@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\barang;
 use App\Models\cabang;
+use App\Models\supplier;
+use App\Models\category;
+use App\Models\history_transaction;
 use Illuminate\Support\Facades\DB;
 
 class DistribusiController extends Controller
@@ -46,15 +49,34 @@ class DistribusiController extends Controller
         $nama = cabang::where('uuid', '=' ,"$request->id_cabang")->value('nama');
         for ($i=0; $i < $total; $i++) { 
             $kode = $request->input('kode')[$i];
-            $stock = $request->input('jumlah')[$i];
+            $stocks = $request->input('jumlah')[$i];
             $data = barang::where('kode_barang', '=' ,"$kode")->first();
             $check = DB::table("$database")->where('kode_barang', '=' ,"$kode")->first();
             if ($check) {
-                $stock = $check->stok + $stock;
+                $stock = $check->stok + $stocks;
                 DB::table("$database")->where('kode_barang', '=' ,"$kode")->update([
                     'stok' => $stock,
                     'Harga_pokok' => $data->Harga_pokok,
                     'harga_jual' => $data->harga_jual,
+                ]);
+                $uuid= hash('sha256', uniqid(mt_rand(), true));
+                $data_history = [
+                    'uuid' => $uuid,
+                    'name' => $data->name,
+                    'jumlah' => $stocks,
+                    'kode_barang' => $data->kode_barang,
+                    'uuid_barang' => $data->uuid,
+                    'harga_pokok' => $data->harga_pokok,
+                    'harga_jual' => $data->harga_jual,
+                    'id_supllayer' => $data->id_supplier,
+                    'status' => 'keluar',
+                    'keterangan' => 'distribusi',
+                    'id_cabang' => $request->id_cabang,
+                ];
+                history_transaction::create($data_history);
+                $data_stock = $data->stok - $stocks;
+                $data->update([
+                    'stok' => $data_stock,
                 ]);
             }else{
                 DB::table("$database")->insert([
@@ -66,9 +88,28 @@ class DistribusiController extends Controller
                     'category_id' => $data->category_id,
                     'harga_pokok' => $data->harga_pokok,
                     'harga_jual' => $data->harga_jual,
-                    'stok' => $stock,
+                    'stok' => $stocks,
                     'kode_barang' => $data->kode_barang,
                     'keterangan' => $data->keterangan,
+                ]);
+                $uuid= hash('sha256', uniqid(mt_rand(), true));
+                $data_history = [
+                    'uuid' => $uuid,
+                    'name' => $data->name,
+                    'jumlah' => $stocks,
+                    'kode_barang' => $data->kode_barang,
+                    'uuid_barang' => $data->uuid,
+                    'harga_pokok' => $data->harga_pokok,
+                    'harga_jual' => $data->harga_jual,
+                    'id_supllayer' => $data->id_supplier,
+                    'status' => 'keluar',
+                    'keterangan' => 'distribusi',
+                    'id_cabang' => $request->id_cabang,
+                ];
+                history_transaction::create($data_history);
+                $data_stock = $data->stok - $stocks;
+                $data->update([
+                    'stok' => $data_stock,
                 ]);
             }
 

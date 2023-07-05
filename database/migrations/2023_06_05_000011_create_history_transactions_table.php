@@ -18,15 +18,18 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('jumlah')->nullable();
             $table->string('kode_barang')->nullable();
+            $table->string('uuid_barang')->nullable();
             // $table->string('kode_transaksi_suppliers')->nullable();
             // interger harga_pokok harga_jual supllayer
             $table->integer('harga_pokok')->nullable();
             $table->integer('harga_jual')->nullable();
-            $table->integer('id_supllayer')->nullable();
+            $table->string('id_supllayer')->nullable();
+            $table->string('id_cabang')->nullable();
+            
+            // string keterangan status
             $table->string('keterangan')->nullable();
+            $table->string('status')->nullable();
             // time date masuk barang
-            $table->datetime('masuk_barang')->nullable();
-            $table->datetime('keluar_barang')->nullable();
             $table->timestamps();
         });
     }

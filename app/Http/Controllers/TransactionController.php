@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\history_transaction;
 
 class TransactionController extends Controller
 {
@@ -18,11 +19,13 @@ class TransactionController extends Controller
     // public function pembelian() penjualan ()\
     public function pembelian()
     {
-        return view('pages.transaction.pembelian');
+        $data = history_transaction::where('status','masuk')->get();
+        return view('pages.transaction.pembelian',compact('data'));
     }
     public function pengeluaran()
     {
-        return view('pages.transaction.pengeluaran');
+        $data = history_transaction::where('status','keluar')->get();
+        return view('pages.transaction.pengeluaran',compact('data'));
     }
     /**
      * Show the form for creating a new resource.

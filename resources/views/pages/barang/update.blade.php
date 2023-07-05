@@ -88,23 +88,71 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($harga as $item)
-                <tr>
-                    <td>
-                        <input type="text" value="{{$item->keterangan}}" class="form-control" name="nama[]">
-                    </td>
-                    <td>
-                        <input type="text" value="{{$item->jumlah_minimal}}" class="form-control" name="jumlah_minimal[]">
-                    </td>
-                    <td>
-                        <input type="text" value="{{$item->harga}}" class="form-control" name="harga[]">
-                    </td>
-                    <td>
-                        <input type="text" value="{{$item->diskon}}" class="form-control" name="diskon[]">
-                        <input type="hidden" value="{{$item->id}}" name="uuid_barang">
-                    </td>
-                </tr>
-                @endforeach
+                @php
+                    $harga_index = $harga->count();
+
+                @endphp
+                    @if ($harga_index >= 1)
+                    @foreach ($harga as $item)
+                    <tr>
+                        <td>
+                            <input type="text" value="{{$item->keterangan}}" class="form-control" name="nama[]">
+                        </td>
+                        <td>
+                            <input type="text" value="{{$item->jumlah_minimal}}" class="form-control" name="jumlah_minimal[]">
+                        </td>
+                        <td>
+                            <input type="text" value="{{$item->harga}}" class="form-control" name="harga[]">
+                        </td>
+                        <td>
+                            <input type="text" value="{{$item->diskon}}" class="form-control" name="diskon[]">
+                            <input type="hidden" value="{{$item->id}}" name="uuid_barang[]">
+                            <input type="hidden" value="update" name="status[]">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" name="nama[]">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="jumlah_minimal[]">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="harga[]">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="diskon[]">
+                            <input type="hidden" value="tambah" name="status[]">
+                            <input type="hidden" value="{{$item->id}}" name="uuid_barang[]">
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm float-right btn-info" id="add_tr2" type="button"><i class="fa fa-plus"></i></button>
+                        </td>
+                    </tr>
+
+                @endforeach                        
+                    @else
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" name="nama[]">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="jumlah_minimal[]">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="harga[]">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="diskon[]">
+                            <input type="hidden" value="tambah" name="status[]">
+                            <input type="hidden" value="{{$item->id}}" name="uuid_barang[]">
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm float-right btn-info" id="add_tr2" type="button"><i class="fa fa-plus"></i></button>
+                        </td>
+                    </tr>
+                    @endif
+
             </tbody>
         </table>
 
@@ -121,31 +169,32 @@
     </div>
     </form>
     <script>
-        // $('#add_tr2').on('click', function (e) {
-        //     var newRowContent =
-        //         `<tr id="tr2_` + ($("#tabelhargakhusus > tbody > tr").length + 1) + `">` +
-        //         `<td>` +
-        //         `<input type="text" class="form-control" name="nama[]">` +
-        //         `</td>` +
-        //         `<td>` +
-        //         `<input type="text" class="form-control" name="jumlah_minimal[]">` +
-        //         `</td>` +
-        //         `<td>` +
-        //         `<input type="text" class="form-control" name="harga[]">` +
-        //         `</td>` +
-        //         `<td>` +
-        //         `<input type="text" class="form-control" name="diskon[]">` +
-        //         `</td>` +
-        //         `<td class="text-center">` +
-        //         `<button class="btn btn-sm btn-danger" onclick="deletetr2(` + ($("#tabelhargakhusus > tbody > tr").length + 1) + `)" type="button"><i class="fa fa-minus"></i></button>` +
-        //         `</td>` +
-        //         `</tr>`;
-        //     $("#tabelhargakhusus tbody").append(newRowContent);
-        // });
+        $('#add_tr2').on('click', function (e) {
+            var newRowContent =
+                `<tr id="tr2_` + ($("#tabelhargakhusus > tbody > tr").length + 1) + `">` +
+                `<td>` +
+                `<input type="text" class="form-control" name="nama[]">` +
+                `</td>` +
+                `<td>` +
+                `<input type="text" class="form-control" name="jumlah_minimal[]">` +
+                `</td>` +
+                `<td>` +
+                `<input type="text" class="form-control" name="harga[]">` +
+                `</td>` +
+                `<td>` +
+                `<input type="text" class="form-control" name="diskon[]">` +
+                `<input type="hidden" value="tambah" name="status[]">` +
+                `</td>` +
+                `<td class="text-center">` +
+                `<button class="btn btn-sm btn-danger" onclick="deletetr2(` + ($("#tabelhargakhusus > tbody > tr").length + 1) + `)" type="button"><i class="fa fa-minus"></i></button>` +
+                `</td>` +
+                `</tr>`;
+            $("#tabelhargakhusus tbody").append(newRowContent);
+        });
     
-        // function deletetr2(id) {
-        //     document.getElementById("tr2_" + id).remove();
-        // }
+        function deletetr2(id) {
+            document.getElementById("tr2_" + id).remove();
+        }
     </script>
 @endsection
 

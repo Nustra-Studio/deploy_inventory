@@ -35,7 +35,9 @@ Route::group(['prefix' => 'error'], function(){
     });
     Route::resource('/barang', BarangController::class);
     Route::post('/barang/hapus', 'BarangController@hapus')->name('barang.hapus');
+    Route::get('/barang/{uuid}/list', 'BarangController@list')->name('barang.list');
     Route::get('/supllier/barang/{uuid}', 'SupplierController@barang')->name('supplier.barang');
+    Route::get('/supllier/list', 'SupplierController@list')->name('supplier.list');
     Route::get('/input-barang', 'BarangController@input')->name('barang.input');
     Route::post('/input-barang', 'BarangController@inputcreate')->name('barang.input.create');
     Route::get('/product/{id}/show', 'SupplierController@caribarang')->name('supplier.getProductsBySupplier');
