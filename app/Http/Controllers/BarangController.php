@@ -77,7 +77,7 @@ class BarangController extends Controller
             'uuid_barang' => $kode->uuid,
             'harga_pokok' => $kode->harga_pokok,
             'harga_jual' => $kode->harga_jual,
-            'id_supllayer' => $kode->supplier,
+            'id_supllayer' => $supplier,
             'status' => 'masuk',
         ];
         $push = history_transaction::create($data_history);
@@ -138,7 +138,7 @@ class BarangController extends Controller
             'uuid_barang' => $request->uuid,
             'harga_pokok' => $request->harga_pokok,
             'harga_jual' => $request->harga_jual,
-            'id_supllayer' => $request->supplier,
+            'id_supllayer' => $request->id_supplier,
             'status' => 'masuk',
         ];
         $push = barang::create($data_master);
