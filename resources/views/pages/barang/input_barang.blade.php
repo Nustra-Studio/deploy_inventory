@@ -309,7 +309,7 @@
                     minimumResultsForSearch: 0,
                     containerCssClass: 'custom-select2-container'
                 });
-                $('#harga-jual-input').val(12000);
+                
 			}
 
 			update();

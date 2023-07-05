@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class cabang extends Model
 {
     use HasFactory;
+    protected $table = 'cabangs';
+    protected $fillable = [
+        'nama',
+        'kepala_cabang',
+        'telepon',
+        'alamat',
+        'category_id',
+        'keterangan',
+        'database',
+        'uuid',
+    ];
 }

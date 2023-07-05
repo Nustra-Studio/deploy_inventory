@@ -67,7 +67,8 @@ class CategoryCabangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = category_cabangs::where('uuid',$id)->first();
+        return view('pages.category_cabang.update',compact('data'));
     }
 
     /**
@@ -79,7 +80,17 @@ class CategoryCabangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this -> validate(request(),[
+            'name' => 'required',
+            'keterangan' => 'required',
+        ]);
+        $data = $request->all();
+        $datanew = [
+            'name' => $data['name'],
+            'keterangan' => $data['keterangan'],
+        ];
+        DB::table('category_cabangs')->where('uuid',$id)->update($datanew);
+        return redirect()->route('categorycabang.index')->with('success','Data Berhasil Diupdate');
     }
 
     /**
@@ -90,6 +101,7 @@ class CategoryCabangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('category_cabangs')->where('uuid',$id)->delete();
+        return redirect()->route('categorycabang.index')->with('success','Data Berhasil Dihapus');
     }
 }

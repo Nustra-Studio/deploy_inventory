@@ -62,7 +62,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = category_barang::where('uuid',$id)->first();
+        return view('pages.category.update',compact('data'));
     }
 
     /**
@@ -74,7 +75,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this ->validate($request,['nama'=>'required']);
+        $data = $request ->all();
+        category_barang::where('uuid',$id)->first()->update($data);
+        return view('pages.category.index')->with('success','Data Berhasil Diupdate');
     }
 
     /**
@@ -87,8 +91,6 @@ class CategoryController extends Controller
     {
         $category = category_barang::find($id);
         $category->delete();
-        Alert::success('Sukses', "Data berhasil dihapus!");
-
-        return redirect()->back();
+        return redirect()->route('category.index')->with('success','Data Berhasil Dihapus');
     }
 }

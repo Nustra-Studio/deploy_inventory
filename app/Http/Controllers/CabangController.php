@@ -102,7 +102,7 @@ class CabangController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -113,7 +113,10 @@ class CabangController extends Controller
      */
     public function edit($id)
     {
-        //
+                // create database for request data
+                $data = cabang::where('uuid', $id)->first();
+                return view('pages.cabang.update', compact('data'));
+            
     }
 
     /**
@@ -125,7 +128,27 @@ class CabangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // buatkan validasi
+        $this->validate($request, [
+            'nama' => 'required',
+            'alamat' => 'required',
+            'keterangan' => 'required',
+            'kepala_cabang' => 'required',
+            'telepon' => 'required',
+            'category_id' => 'required',
+        ]);
+        $data = $request->all();
+        // update data
+        $newdata = [
+            'nama' => $data['nama'],
+            'alamat' => $data['alamat'],
+            'keterangan' => $data['keterangan'],
+            'kepala_cabang' => $data['kepala_cabang'],
+            'telepon' => $data['telepon'],
+            'category_id' => $data['category_id'],
+        ];
+        DB::table('cabangs')->where('uuid', $id)->update($newdata);
+        return redirect()->route('cabang.index')->with('success', 'Data cabang berhasil diupdate');
     }
 
     /**
@@ -136,6 +159,13 @@ class CabangController extends Controller
      */
     public function destroy($id)
     {
-        //
+                // delete data
+                $data = cabang::where('uuid', $id)->first();
+                $nama = str_replace(' ', '_', $data->nama);
+                $database = "cabang_$nama";
+                DB::statement("DROP TABLE cabang_$nama");
+                DB::statement("DROP TABLE transaction_$database");
+                cabang::where('uuid', $id)->delete();
+                return redirect()->route('cabang.index')->with('success', 'Data cabang berhasil dihapus');
     }
 }

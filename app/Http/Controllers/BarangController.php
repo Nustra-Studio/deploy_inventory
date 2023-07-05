@@ -113,8 +113,9 @@ class BarangController extends Controller
         $push = barang::create($data_master);
 
             for($j=0; $j < count($request->nama); $j++){
+                $uuid= hash('sha256', uniqid(mt_rand(), true));
                 $data_harga = [
-                    'uuid' => $request->uuid,
+                    'uuid' => $uuid,
                     'id_barang'=> $request->uuid,
                     'harga' => $request->harga[$j],
                     'jumlah_minimal' => $request->jumlah_minimal[$j],

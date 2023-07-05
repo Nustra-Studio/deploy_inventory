@@ -53,8 +53,8 @@
                 <td>{{$item->keterangan}}</td>
                 <td>
                   <div class="text-end">
-                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                    <form id="form-delete-{{ $item->id }}" action="{{ route('category.destroy', $item->id) }}" method="POST" style="display: none;">
+                    <a href="/cabang/{{$item->uuid}}/edit" class="btn btn-primary btn-sm">Edit</a>
+                    <form id="form-delete-{{ $item->id }}" action="{{ route('cabang.destroy', $item->uuid) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                   </form>

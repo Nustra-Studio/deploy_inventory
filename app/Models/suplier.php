@@ -15,6 +15,7 @@ class suplier extends Model
         'keterangan',
         'alamat',
         'telepon',
-        'category_barang_id'
+        'category_barang_id',
+        'uuid',
     ];
 }

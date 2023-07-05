@@ -20,7 +20,7 @@ use App\Http\Controllers\CategoryCabangController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('dashboard');
+    return redirect()->route('barang.index');
 });
 
 

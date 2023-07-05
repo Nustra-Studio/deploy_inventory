@@ -50,8 +50,8 @@
                 <td> {{$category}}</td>
                 <td>
                   <div class="text-end">
-                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                    <form id="form-delete-{{ $item->id }}" action="{{ route('supllier.destroy', $item->id) }}" method="POST" style="display: none;">
+                    <a href="{{url("/supllier/$item->uuid/edit")}}" class="btn btn-primary btn-sm">Edit</a>
+                    <form id="form-delete-{{ $item->id }}" action="{{ route('supllier.destroy', $item->uuid) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                   </form>

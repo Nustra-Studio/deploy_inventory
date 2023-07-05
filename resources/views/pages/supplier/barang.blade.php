@@ -7,12 +7,10 @@
 @section('content')
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Data Barang</li>
+    <li class="breadcrumb-item active" aria-current="page">Data Barang Supplier {{$nama}}</li>
   </ol>
 </nav>
-{{-- @php
- $uuid_name = use\App\Http\Modals\Barang;   
-@endphp --}}
+
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
@@ -38,20 +36,29 @@
               </tr>
             </thead>
             <tbody>
+              @foreach ($data as $item)
+              @php
+                  $category = DB::table('category_barangs')->where('uuid', $item->category_id)->first();
+              @endphp
               <tr>
-                <td>1</td>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>SC</td>
-                <td>$320,800</td>
-                <td>$320,800</td>
-                <td>45</td>
+                <td>{{ $loop->index+1 }}</td>
+                <td>{{$item->name}}</td>
+                <td>{{$item->kode_barang}}</td>
+                <td>{{$item->kode_barang}}</td>
+                <td>{{$category->name}}</td>
+                <td>{{$item->harga_pokok}}</td>
+                <td>{{$item->harga_jual}}</td>
+                <td>{{$item->stok}}</td>
                 <td>
-                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                  <a href="#" class="btn btn-success btn-sm">Show</a>
+                  <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                  <form id="form-delete-{{ $item->id }}" action="{{ route('category.destroy', $item->id) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                <button class="btn btn-danger btn-sm delete-button" data-form-delete="{{ $item->id }}">Delete</button>
               </tr>
-              
+              @endforeach
             </tbody>
           </table>
         </div>

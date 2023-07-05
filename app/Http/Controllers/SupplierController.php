@@ -21,9 +21,9 @@ class SupplierController extends Controller
     }
     public function barang($uuid)
     {
-        $data = suplier::all();
-        // $data = $uuid;
-        return view('pages.supplier.barang',compact('data'));
+        $data = barang::where('id_supplier', $uuid)->get();
+        $nama = suplier::where('uuid', $uuid)->value('nama');
+        return view('pages.supplier.barang',compact('data','nama'));
     }
 
     /**
@@ -80,7 +80,8 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+       $data = DB::table('supliers')->where('uuid', $id)->first();
+        return view('pages.supplier.update', compact('data'));
     }
 
     /**
@@ -92,7 +93,26 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nama'=> 'required',
+            'supplier'=> 'required',
+            'keterangan'=> 'required',
+            'alamat'=> 'required',
+            'telepon'=> 'required',
+            'category'=> 'required',
+
+        ]);
+        $data = $request->all();
+        $data =[
+            'nama' => $request->nama,
+            'product' => $request->supplier,
+            'keterangan' => $request->keterangan,
+            'alamat' => $request->alamat,
+            'telepon' => $request->telepon,
+            'category_barang_id'=> $request->category,
+        ];
+        DB::table('supliers')->where('uuid', $id)->update($data);
+        return redirect()->route('supllier.index')->with('success', 'Data supplier berhasil diupdate');
     }
 
     /**
@@ -103,6 +123,7 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('supliers')->where('uuid', $id)->delete();
+        return redirect()->route('supllier.index')->with('success', 'Data supplier berhasil dihapus');
     }
 }

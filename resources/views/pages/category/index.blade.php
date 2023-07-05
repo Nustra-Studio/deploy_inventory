@@ -38,7 +38,7 @@
                     <td> {{$item->name}}</td>
                     <td>
                       <div class="text-end">
-                        <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{{url("/category/$item->uuid/edit")}}" class="btn btn-primary btn-sm">Edit</a>
                         <form id="form-delete-{{ $item->id }}" action="{{ route('category.destroy', $item->id) }}" method="POST" style="display: none;">
                           @csrf
                           @method('DELETE')
