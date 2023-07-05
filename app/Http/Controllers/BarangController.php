@@ -57,7 +57,7 @@ class BarangController extends Controller
         foreach ($data as $row) {
             $supplier = suplier::where('nama', $row['supplier'])->value('uuid');
             $stock = barang::where('name', $row['Name'])->value('stok');
-            $kode = barang::where('name', $row['Name'])->frist();
+            $kode = barang::where('name', $row['Name'])->first();
             $stock = $stock + $row['jumlah'];
             DB::table('barangs')->updateOrInsert(
                 ['name' => $row['Name']],
