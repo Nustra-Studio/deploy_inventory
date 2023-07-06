@@ -66,6 +66,16 @@ License: For each use you must have a valid license purchased only from above li
             });
         </script>
     @endif
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}'
+            });
+        </script>
+        
+    @endif
       </div>
       <script>
         // Tambahkan event listener untuk tombol atau tautan

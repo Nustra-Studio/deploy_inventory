@@ -33,6 +33,14 @@ Route::group(['prefix' => 'error'], function(){
         // buat kan route barang resource metode get 
         Route::get('/barang', 'BarangController@resource')->name('barang.resource');
     });
+    Route::prefix('pdf')->group(function () {
+        // Route::get('/pembelian', 'TransactionController@pembelian_pdf')->name('transaction.pembelian.pdf');
+        // Route::get('/pengeluaran', 'TransactionController@pengeluaran_pdf')->name('transaction.pengeluaran.pdf');
+        Route::post('/pembelian', 'TransactionController@pembelian_pdf')->name('transaction.pembelian.pdf');
+        Route::post('/pengeluaran', 'TransactionController@pengeluaran_pdf')->name('transaction.pengeluaran.pdf');
+    });
+    Route::post('/pembelian', 'TransactionController@pembelian_cari')->name('transaction.pembelian.cari');
+    Route::post('/pengeluaran', 'TransactionController@pengeluaran_cari')->name('transaction.pengeluaran.cari');
     Route::resource('/barang', BarangController::class);
     Route::post('/barang/hapus', 'BarangController@hapus')->name('barang.hapus');
     Route::get('/barang/{uuid}/list', 'BarangController@list')->name('barang.list');
