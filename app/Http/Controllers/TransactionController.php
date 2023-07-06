@@ -64,7 +64,6 @@ class TransactionController extends Controller
         }
         else{
             $status = "masuk";
-            $html = view('pages.transaction.pdf', compact('data', 'status'))->render();
 
             // Generate the PDF
             $pdf = PDF::loadView('pages.transaction.pdf', compact('data', 'status'));
@@ -102,8 +101,6 @@ class TransactionController extends Controller
             return redirect()->back()->with('error','Data Tidak Ditemukan');
         }
         else{
-            $html = view('pages.transaction.pdf', compact('data', 'status'))->render();
-
             // Generate the PDF
             $pdf = PDF::loadView('pages.transaction.pdf', compact('data', 'status'));
             
