@@ -36,7 +36,8 @@
       <div class="card-body">
         {{-- <p class="text-muted mb-3">Read the <a href="https://datatables.net/" target="_blank"> Official DataTables Documentation </a>for a full list of instructions and other options.</p> --}}
         
-          <table id="" class="table table-striped">
+        <div class="table-responsive">
+          <table id="" class="table" style="font-size: 13px">
             <thead>
               @if ($status == "masuk")
                   <tr>
