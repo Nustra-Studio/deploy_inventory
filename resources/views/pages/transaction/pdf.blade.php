@@ -2,6 +2,7 @@
 
   <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.css') }}" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 
 
@@ -35,7 +36,7 @@
       <div class="card-body">
         {{-- <p class="text-muted mb-3">Read the <a href="https://datatables.net/" target="_blank"> Official DataTables Documentation </a>for a full list of instructions and other options.</p> --}}
         
-          <table id="" class="table table-bordered">
+          <table id="" class="table table-striped">
             <thead>
               @if ($status == "masuk")
                   <tr>
