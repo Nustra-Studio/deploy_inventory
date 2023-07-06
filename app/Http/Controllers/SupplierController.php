@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\suplier;
+use App\Models\barang;
 
 class SupplierController extends Controller
 {
@@ -18,7 +19,16 @@ class SupplierController extends Controller
         $data = suplier::all();
         return view('pages.supplier.index' , compact('data'));
     }
-
+    public function barang($uuid)
+    {
+        $data = barang::where('id_supplier', $uuid)->get();
+        $nama = suplier::where('uuid', $uuid)->value('nama');
+        return view('pages.supplier.barang',compact('data','nama'));
+    }
+    public function list(){
+        $data = suplier::all();
+        return response()->json($data);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +53,8 @@ class SupplierController extends Controller
             'keterangan' => $request->keterangan,
             'alamat' => $request->alamat,
             'telepon' => $request->telepon,
-            'category_barang_id'=> $request->category
+            'category_barang_id'=> $request->category,
+            'uuid' => $request->uuid,
         ];
         DB::table('supliers')->insert($data);
         return redirect()->route('supllier.index')->with('success', 'Data supplier berhasil ditambahkan');
@@ -59,7 +70,11 @@ class SupplierController extends Controller
     {
         //
     }
-
+    public function caribarang($id){
+        $ids = suplier::where('nama', $id)->value('uuid');
+        $data = barang::where('id_supplier', $ids)->get();
+        return response()->json($data);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -68,7 +83,8 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+       $data = DB::table('supliers')->where('uuid', $id)->first();
+        return view('pages.supplier.update', compact('data'));
     }
 
     /**
@@ -80,7 +96,26 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nama'=> 'required',
+            'supplier'=> 'required',
+            'keterangan'=> 'required',
+            'alamat'=> 'required',
+            'telepon'=> 'required',
+            'category'=> 'required',
+
+        ]);
+        $data = $request->all();
+        $data =[
+            'nama' => $request->nama,
+            'product' => $request->supplier,
+            'keterangan' => $request->keterangan,
+            'alamat' => $request->alamat,
+            'telepon' => $request->telepon,
+            'category_barang_id'=> $request->category,
+        ];
+        DB::table('supliers')->where('uuid', $id)->update($data);
+        return redirect()->route('supllier.index')->with('success', 'Data supplier berhasil diupdate');
     }
 
     /**
@@ -91,6 +126,7 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('supliers')->where('uuid', $id)->delete();
+        return redirect()->route('supllier.index')->with('success', 'Data supplier berhasil dihapus');
     }
 }

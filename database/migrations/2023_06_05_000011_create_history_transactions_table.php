@@ -15,16 +15,21 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->unique();
             // string name satuan  kode_brang kode_transcation_suppliers  
-            $table->string('name');
-            $table->string('satuan');
-            $table->string('kode_barang');
-            $table->string('kode_transaksi_suppliers');
+            $table->string('name')->nullable();
+            $table->string('jumlah')->nullable();
+            $table->string('kode_barang')->nullable();
+            $table->string('uuid_barang')->nullable();
+            // $table->string('kode_transaksi_suppliers')->nullable();
             // interger harga_pokok harga_jual supllayer
-            $table->integer('harga_pokok');
-            $table->integer('harga_jual');
-            $table->integer('id_supllayer');
+            $table->integer('harga_pokok')->nullable();
+            $table->integer('harga_jual')->nullable();
+            $table->string('id_supllayer')->nullable();
+            $table->string('id_cabang')->nullable();
+            
+            // string keterangan status
+            $table->string('keterangan')->nullable();
+            $table->string('status')->nullable();
             // time date masuk barang
-            $table->time('masuk_barang');
             $table->timestamps();
         });
     }

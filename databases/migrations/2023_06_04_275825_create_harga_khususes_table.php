@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('harga');
             $table->integer('jumlah_minimal');
             $table->integer('diskon');
-            $table->string('keterangan');
-            $table->string('satuan');
+            $table->string('keterangan')->nullable();
+            $table->string('satuan')->nullable();
             $table->timestamps();
         });
     }

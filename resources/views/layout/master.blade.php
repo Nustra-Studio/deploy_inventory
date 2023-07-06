@@ -24,9 +24,11 @@ License: For each use you must have a valid license purchased only from above li
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <!-- End fonts -->
-  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Memuat CSS Font Awesome dari CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!-- CSRF Token -->
-  <meta name="_token" content="{{ csrf_token() }}">
+  {{-- <meta name="_token" content="{{ csrf_token() }}"> --}}
   
   <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
 
@@ -54,6 +56,26 @@ License: For each use you must have a valid license purchased only from above li
       @include('layout.header')
       <div class="page-content">
         @yield('content')
+
+        @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                text: '{{ session('success') }}'
+            });
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}'
+            });
+        </script>
+        
+    @endif
       </div>
       <script>
         // Tambahkan event listener untuk tombol atau tautan

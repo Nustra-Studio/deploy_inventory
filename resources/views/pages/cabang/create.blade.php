@@ -23,6 +23,11 @@
             enctype="multipart/form-data"    
             class="forms-sample">
                 @csrf
+                @php
+                $uniqueValue = hash('sha256', uniqid(mt_rand(), true));
+
+                @endphp
+                <input type="text" hidden value="{{$uniqueValue}}" name="uuid">
             <div class="mb-3">
                 <label for="exampleInputUsername1" class="form-label">Nama</label>
                 <input type="text" name="nama" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Nama Cabang">
@@ -42,7 +47,6 @@
             <div class="mb-3">
                 <label for="exampleFormControlSelect1" class="form-label">Category Cabang</label>
                 <select class="form-select" name="category_id" id="exampleFormControlSelect1">
-                    <option selected disabled>Select your Category Cabang</option>
                     @foreach ($cabang as $item)
                     <option value="{{$item->id}}">{{$item->name}}</option>
                     @endforeach
